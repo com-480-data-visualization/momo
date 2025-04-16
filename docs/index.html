@@ -3,18 +3,16 @@
 
 <head>
     <title>COM480 Momo</title>
-    <style>
-        #chartdiv {
-            width: 100%;
-            height: 500px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 
     <!-- Resources -->
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/flow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
 </head>
 
 <body>
@@ -25,6 +23,58 @@
     <div id="chartdiv"></div>
 
     <script src="src/world_map.js"></script>
+
+    <!-- Charts by Country -->
+    <h2>Explore Winners by Country</h2>
+
+    <div class="chart-row">
+        <!-- Bar Chart -->
+        <div class="chart-box">
+            <h3>Winners Over Time</h3>
+            <div class="filter-controls">
+            <label for="type-select">Type:</label>
+            <select id="type-select">
+                <option value="All">All</option>
+                <option value="Physics">Physics</option>
+                <option value="Peace">Peace</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Literature">Literature</option>
+            </select>
+
+            <label for="country-select">Country:</label>
+            <select id="country-select">
+                <option value="All">All</option>
+                <option value="map" disabled>(Selected from map)</option>
+                <option value="United States">United States</option>
+                <option value="Germany">Germany</option>
+                <option value="France">France</option>
+            </select>
+            </div>
+            <div id="barchartdiv"></div>
+        </div>
+
+        <!-- Pie Chart -->
+        <div class="chart-box">
+            <h3>Category Distribution</h3>
+            <div class="filter-controls">
+            <label for="country-pie-select">Country:</label>
+            <select id="country-pie-select">
+                <option value="All">All</option>
+                <option value="map" disabled>(Selected from map)</option>
+                <option value="United States">United States</option>
+                <option value="Germany">Germany</option>
+                <option value="France">France</option>
+            </select>
+            </div>
+            <div id="piechartdiv" style="height: 400px; width: 100%;"></div>
+        </div>
+    </div>
+
+
+    <script src="src/chart_controller.js"></script>
+    <script src="src/bar_chart.js"></script>
+    <script src="src/pie_chart.js"></script>
+
 
     <h2>General Statistics</h2>
     <p>
@@ -52,7 +102,6 @@
         And we can show the correlation between two attributes, such as the correlation between
         the birth place and the affiliation place of the Nobel Prize winners:
     </p>
-
     <img src="assets/m2_transition.jpg" alt="Migration of Nobel Prize winners"
         style="width: 100%; max-width: 600px; display:block; margin-left: auto; margin-right: auto;" />
 </body>

@@ -58,6 +58,14 @@ am5.ready(function () {
         previousPolygon = target;
     });
 
+    polygonSeries.mapPolygons.template.events.on("click", function (ev) {
+        const country = ev.target.dataItem.dataContext.name;
+        console.log("Clicked country:", country);
+
+        // Communicate with bar chart
+        window.setSelectedCountry(country); // Call function in bar_chart.js
+    });
+
 
     // Add zoom control
     // https://www.amcharts.com/docs/v5/charts/map-chart/map-pan-zoom/#Zoom_control
