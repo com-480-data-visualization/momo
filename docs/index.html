@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>COM480 Momo</title>
     <style>
@@ -8,13 +9,14 @@
             height: 500px;
         }
     </style>
-    
+
     <!-- Resources -->
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 </head>
+
 <body>
     <h1>Visualize Nobel prize winners on the world map</h1>
 
@@ -23,5 +25,36 @@
     <div id="chartdiv"></div>
 
     <script src="src/world_map.js"></script>
+
+    <h2>General Statistics</h2>
+    <p>
+        Display general statistics about the Nobel prize winners below the interactive world map.
+    </p>
+
+    <p>
+        For example, we can show the aggregation attributes of all Nobel Prize winners, such as
+        the winner count by year:
+    </p>
+
+    <img src="assets/m2_count_years.png" alt="Total number of Nobel Prize winners"
+        style="width: 100%; max-width: 600px; display:block; margin-left: auto; margin-right: auto;" />
+
+    <p>
+        We can also show the attribute distribution of all or a subset of Nobel Prize winners, such as the distribution
+        of
+        winning age:
+    </p>
+
+    <img src="assets/m2_physics_age.png" alt="Age distribution of Nobel Prize winners"
+        style="width: 100%; max-width: 600px; display:block; margin-left: auto; margin-right: auto;" />
+
+    <p>
+        And we can show the correlation between two attributes, such as the correlation between
+        the birth place and the affiliation place of the Nobel Prize winners:
+    </p>
+
+    <img src="assets/m2_transition.jpg" alt="Migration of Nobel Prize winners"
+        style="width: 100%; max-width: 600px; display:block; margin-left: auto; margin-right: auto;" />
 </body>
+
 </html>
