@@ -19,7 +19,7 @@ Please, fill the following sections about your project.
 
 ### Dataset
 
-We are going to utilize the [Nobel Prize Winners: 1901 to 2023](https://www.kaggle.com/datasets/sazidthe1/nobel-prize-data) dataset from Kaggle for our analysis and visualization, which was retrieved from the Nobel Foundation's Nobel Prize Data (https://www.nobelprize.org/prizes). Between 1901 and 2023, the Nobel Prizes and the Sveriges Riks bank Prize in Economic Sciences in Memory of Alfred Nobel were awarded 621 times to 1,000 people and organizations. With some receiving the Nobel Prize more than once, this makes a total of 965 individuals and 27 organizations. 
+We are going to utilize the [Nobel Prize Winners: 1901 to 2023](https://www.kaggle.com/datasets/sazidthe1/nobel-prize-data) dataset from Kaggle for our analysis and visualization, which was retrieved from the Nobel Foundation's Nobel Prize Data (<https://www.nobelprize.org/prizes>). Between 1901 and 2023, the Nobel Prizes and the Sveriges Riks bank Prize in Economic Sciences in Memory of Alfred Nobel were awarded 621 times to 1,000 people and organizations. With some receiving the Nobel Prize more than once, this makes a total of 965 individuals and 27 organizations.
 
 Information about the dataset:
 
@@ -54,19 +54,19 @@ The lack of such an accessible, visual representation can hinder educational ins
 **2. Award Distribution Insights**
  The Nobel Prize in Economic Sciences was only introduced in 1969. Consequently, the number of laureates in this category is significantly lower compared to the other prize categories. The differences in award counts among the other categories are illustrated in the figure below.
 
-<img src="README (1).assets/output.png" alt="output" style="zoom:36%;" />
+<img src="assets/m1_nobel_count_category.png" alt="Category Count" style="zoom:36%;" />
 
 **3. Interesting Insights**
 
 - **Spatial Distribution:**
    As illustrated in the figure below, recipients with U.S. nationality far outnumber those from other countries.
 
-<img src="README (1).assets/image-20250321112031225.png" alt="image-20250321112031225" style="zoom: 33%;" />
+<img src="assets/m1_lauretes_world_map.png" alt="Recipients Worldwide" style="zoom: 33%;" />
 
 - **Temporal Trends:**
    Our distribution line plot, which includes an approximated trend line, clearly shows that the average prize share has increased over time. This trend reflects a shift in the scientific paradigm towards greater collaboration, which is essential for driving innovation across experimental fields. Notably, this observation aligns with the collaborative spirit that motivated this course.
 
-<img src="README (1).assets/image-20250321114736595.png" alt="image-20250321114736595" style="zoom: 67%;" />
+<img src="assets/m1_nobel_distribution.png" alt="Distribution over years" style="zoom: 67%;" />
 
 ### Related work
 
