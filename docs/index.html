@@ -19,6 +19,36 @@
     <h1>Visualize Nobel prize winners on the world map</h1>
 
     <h2>World Map</h2>
+
+    <!-- Filter Panel: time & categories -->
+    <div class="control-panel compact">
+        <!-- Compact Timeline -->
+        <div class="timeline-container">
+            <h3>Timeline</h3>
+            <div class="slider-wrapper">
+                <input type="range" id="timeline-slider" min="1900" max="2024" value="2024" class="slider">
+                <div id="current-year">2024</div>
+            </div>
+        </div>
+
+        <!-- Dropdown Category Filter -->
+        <div class="category-filter">
+            <h3>Category</h3>
+            <div class="dropdown">
+                <button class="dropdown-toggle">All Categories ▼</button>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item" data-category="all">All Categories</div>
+                    <div class="dropdown-item" data-category="physics">Physics</div>
+                    <div class="dropdown-item" data-category="chemistry">Chemistry</div>
+                    <div class="dropdown-item" data-category="literature">Literature</div>
+                    <div class="dropdown-item" data-category="peace">Peace</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="src/filter_data.js"></script>
+
     <!-- Chart container must come FIRST -->
     <div id="chartdiv"></div>
 
@@ -32,23 +62,23 @@
         <div class="chart-box">
             <h3>Winners Over Time</h3>
             <div class="filter-controls">
-            <label for="type-select">Type:</label>
-            <select id="type-select">
-                <option value="All">All</option>
-                <option value="Physics">Physics</option>
-                <option value="Peace">Peace</option>
-                <option value="Chemistry">Chemistry</option>
-                <option value="Literature">Literature</option>
-            </select>
+                <label for="type-select">Type:</label>
+                <select id="type-select">
+                    <option value="All">All</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Peace">Peace</option>
+                    <option value="Chemistry">Chemistry</option>
+                    <option value="Literature">Literature</option>
+                </select>
 
-            <label for="country-select">Country:</label>
-            <select id="country-select">
-                <option value="All">All</option>
-                <option value="map" disabled>(Selected from map)</option>
-                <option value="United States">United States</option>
-                <option value="Germany">Germany</option>
-                <option value="France">France</option>
-            </select>
+                <label for="country-select">Country:</label>
+                <select id="country-select">
+                    <option value="All">All</option>
+                    <option value="map" disabled>(Selected from map)</option>
+                    <option value="United States">United States</option>
+                    <option value="Germany">Germany</option>
+                    <option value="France">France</option>
+                </select>
             </div>
             <div id="barchartdiv"></div>
         </div>
@@ -57,14 +87,14 @@
         <div class="chart-box">
             <h3>Category Distribution</h3>
             <div class="filter-controls">
-            <label for="country-pie-select">Country:</label>
-            <select id="country-pie-select">
-                <option value="All">All</option>
-                <option value="map" disabled>(Selected from map)</option>
-                <option value="United States">United States</option>
-                <option value="Germany">Germany</option>
-                <option value="France">France</option>
-            </select>
+                <label for="country-pie-select">Country:</label>
+                <select id="country-pie-select">
+                    <option value="All">All</option>
+                    <option value="map" disabled>(Selected from map)</option>
+                    <option value="United States">United States</option>
+                    <option value="Germany">Germany</option>
+                    <option value="France">France</option>
+                </select>
             </div>
             <div id="piechartdiv" style="height: 400px; width: 100%;"></div>
         </div>
