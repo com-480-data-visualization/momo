@@ -12,11 +12,6 @@
 
 **10% of the final grade**
 
-This is a preliminary milestone to let you set up goals for your final project and assess the feasibility of your ideas.
-Please, fill the following sections about your project.
-
-*(max. 2000 characters per section)*
-
 ### Dataset
 
 We are going to utilize the [Nobel Prize Winners: 1901 to 2023](https://www.kaggle.com/datasets/sazidthe1/nobel-prize-data) dataset from Kaggle for our analysis and visualization, which was retrieved from the Nobel Foundation's Nobel Prize Data (<https://www.nobelprize.org/prizes>). Between 1901 and 2023, the Nobel Prizes and the Sveriges Riks bank Prize in Economic Sciences in Memory of Alfred Nobel were awarded 621 times to 1,000 people and organizations. With some receiving the Nobel Prize more than once, this makes a total of 965 individuals and 27 organizations.
@@ -81,6 +76,10 @@ This project builds upon previous explorations of the dataset in [MATH-517](http
 ## Milestone 2 (18th April, 5pm)
 
 **10% of the final grade**
+
+Link to website: https://com-480-data-visualization.github.io/momo/
+
+Link to report:
 
 ## Milestone 3 (30th May, 5pm)
 
