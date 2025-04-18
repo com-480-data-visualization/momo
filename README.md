@@ -77,9 +77,15 @@ This project builds upon previous explorations of the dataset in [MATH-517](http
 
 **10% of the final grade**
 
+<<<<<<< HEAD
 Link to website: https://com-480-data-visualization.github.io/momo/
 
 Link to report:
+=======
+[Link to website](https://com-480-data-visualization.github.io/momo/)
+
+[Link to report](https://github.com/com-480-data-visualization/momo/blob/milestone2/Milestone%202.pdf)
+>>>>>>> milestone2
 
 ## Milestone 3 (30th May, 5pm)
 
