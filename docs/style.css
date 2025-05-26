@@ -12,6 +12,38 @@ body {
     margin-bottom: 40px;
 }
 
+#map-and-charts-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 40px; /* Space before 'General Statistics' */
+}
+
+#map-column {
+    flex: 2; /* Takes up roughly 2/3 of the space */
+}
+
+#charts-column {
+    flex: 1; /* Takes up roughly 1/3 of the space */
+    display: flex;
+    flex-direction: column; /* Stack chart-box elements vertically */
+    gap: 20px; /* Space between bar chart and pie chart */
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* Ensure map itself takes full width of its column */
+#chartdiv {
+    height: 500px; /* Map height can remain 500px */
+}
+
+/* Adjust chart heights for the column view */
+#barchartdiv,
+#piechartdiv {
+    height: 350px; /* Reduced height */
+}
+
 .center-img {
     width: 100%;
     max-width: 600px;
@@ -23,14 +55,13 @@ body {
 
 .chart-row {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 20px;
-    margin-top: 20px;
+    flex-direction: column; /* Ensure chart-boxes stack vertically within charts-column */
+    gap: 20px; /* Keep gap between charts */
+    /* margin-top: 20px; Removed as charts-column now handles outer spacing */
 }
 
 .chart-box {
-    width: 45%;
+    width: 100%; /* Was 45%, now takes full width of its column cell */
 }
 
 .chart-box h3 {
