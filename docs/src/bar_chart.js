@@ -54,11 +54,13 @@ am5.ready(function () {
 
     // Also expose this globally so setSelectedCountry can call it
     window.updateBarChart = function () {
+        const selectedType = document.getElementById("type-select").value;
         const countrySelectValue = document.getElementById("country-select").value;
         const country = countrySelectValue === "map" ? window.selectedCountry : countrySelectValue;
 
         const filtered = allData.filter((d) => {
-            return country === "All" || d.country === country;
+            return (selectedType === "All" || d.type === selectedType) &&
+                   (country === "All" || d.country === country);
         });
 
         const grouped = {};
@@ -75,6 +77,7 @@ am5.ready(function () {
         series.data.setAll(chartData);
     };
 
+    document.getElementById("type-select").addEventListener("change", window.updateBarChart);
     document.getElementById("country-select").addEventListener("change", window.updateBarChart);
 
     window.updateBarChart(); // Initial render

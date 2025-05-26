@@ -77,5 +77,7 @@ am5.ready(function () {
         chart.goHome();
     })
 
+
+    // Make stuff animate on load
     chart.appear(1000, 100);
 });
