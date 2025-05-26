@@ -4,12 +4,105 @@ body {
     margin: 20px;
 }
 
+/* Navigation Bar Styling */
+nav {
+    background-color: #16d7ad;
+    color: rgb(216, 63, 63);
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+}
+
+nav ul li a:hover {
+    background-color: #575757;
+    border-radius: 5px;
+}
+
+/* Section Styling */
+section {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+section h1 {
+    color: #333;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+section p {
+    color: #555;
+    line-height: 1.6;
+}
+
+/* New styles for two-column layout */
+.main-content-area {
+    display: flex;
+    justify-content: space-evenly; 
+    gap: 20px; 
+    width: 100%;
+    margin-top: 20px; 
+    align-items: center; /* Added vertical alignment */
+}
+
+.map-column {
+    width: 50%; /* Adjusted width */
+    display: flex;
+}
+
+.charts-column {
+    width: 40%; /* Adjusted width */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+}
+
+.map-column h2, .charts-column h2 {
+    margin-top: 0; 
+}
+/* End of new two-column layout styles */
+
 #chartdiv,
 #barchartdiv,
-#piechartdiv {
+#piechartdiv,
+#genderpiechartdiv,
+#awardAgeHistogramDiv {
     width: 100%;
-    height: 500px;
-    margin-bottom: 40px;
+    height: 320px; /* New reduced height for all charts */
+    margin-bottom: 20px; /* New reduced margin for all charts */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: transparent; /* Make chart containers transparent */
+    border: none; /* Optional: Remove border if not needed */
+}
+
+#chartdiv { /* Specific override for the World Map */
+    /* height: 450px; --- Removed as per new shared rule */
+    margin-bottom: 0; /* Kept as it might be needed for map column layout */
 }
 
 .center-img {
@@ -24,13 +117,14 @@ body {
 .chart-row {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    gap: 20px;
+    flex-wrap: wrap; /* Allow wrapping */
+    justify-content: flex-start; /* Change to flex-start */
+    gap: 25px;
     margin-top: 20px;
 }
 
 .chart-box {
-    width: 45%;
+    width: calc(50% - 12.5px); /* Adjust width for two items per row, considering a 25px gap */
 }
 
 .chart-box h3 {
@@ -133,4 +227,23 @@ body {
 
 .dropdown.show .dropdown-menu {
     display: block;
+}
+
+/* Image Styling */
+img {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #16d7ad;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
 }
