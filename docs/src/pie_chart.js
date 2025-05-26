@@ -28,6 +28,16 @@ am5.ready(function () {
             categoryField: "category"
         })
     );
+    // Hide slice labels (existing settings for text, fill, radius etc. become irrelevant)
+    series.labels.template.set("forceHidden", true); 
+
+    // Ensure ticks are also hidden (already done, but good to keep with label settings)
+    series.ticks.template.set("forceHidden", true);
+
+    // Configure tooltips on slices
+    series.slices.template.set("tooltipText", "{category}: {valuePercentTotal.formatNumber('0.0')}%"); 
+
+    // No explicit legend found in this file, so skipping legend modifications.
 
     // ✅ Expose this function globally so it can be called from the map
     window.updatePieChart = function () {
