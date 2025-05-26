@@ -18,46 +18,44 @@
 <body>
     <h1>Visualize Nobel prize winners on the world map</h1>
 
-    <h2>World Map</h2>
+    <!-- Filters and Map + Country Specific Charts -->
+    <div id="map-and-charts-container">
+        <!-- Column 1: Map and its filters -->
+        <div id="map-column">
+            <h2>World Map</h2>
+            <div class="control-panel compact">
+                <!-- Compact Timeline -->
+                <div class="timeline-container">
+                    <h3>Timeline</h3>
+                    <div class="slider-wrapper">
+                        <input type="range" id="timeline-slider" min="1900" max="2024" value="2024" class="slider">
+                        <div id="current-year">2024</div>
+                    </div>
+                </div>
 
-    <!-- Filter Panel: time & categories -->
-    <div class="control-panel compact">
-        <!-- Compact Timeline -->
-        <div class="timeline-container">
-            <h3>Timeline</h3>
-            <div class="slider-wrapper">
-                <input type="range" id="timeline-slider" min="1900" max="2024" value="2024" class="slider">
-                <div id="current-year">2024</div>
-            </div>
-        </div>
-
-        <!-- Dropdown Category Filter -->
-        <div class="category-filter">
-            <h3>Category</h3>
-            <div class="dropdown">
-                <button class="dropdown-toggle">All Categories ▼</button>
-                <div class="dropdown-menu">
-                    <div class="dropdown-item" data-category="all">All Categories</div>
-                    <div class="dropdown-item" data-category="physics">Physics</div>
-                    <div class="dropdown-item" data-category="chemistry">Chemistry</div>
-                    <div class="dropdown-item" data-category="literature">Literature</div>
-                    <div class="dropdown-item" data-category="peace">Peace</div>
+                <!-- Dropdown Category Filter -->
+                <div class="category-filter">
+                    <h3>Category</h3>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle">All Categories ▼</button>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item" data-category="all">All Categories</div>
+                            <div class="dropdown-item" data-category="physics">Physics</div>
+                            <div class="dropdown-item" data-category="chemistry">Chemistry</div>
+                            <div class="dropdown-item" data-category="literature">Literature</div>
+                            <div class="dropdown-item" data-category="peace">Peace</div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <script src="src/filter_data.js"></script>
+            <div id="chartdiv"></div> <!-- World Map -->
+            <script src="src/world_map.js"></script>
         </div>
-    </div>
 
-    <script src="src/filter_data.js"></script>
-
-    <!-- Chart container must come FIRST -->
-    <div id="chartdiv"></div>
-
-    <script src="src/world_map.js"></script>
-
-    <!-- Charts by Country -->
-    <h2>Explore Winners by Country</h2>
-
-    <div class="chart-row">
+        <!-- Column 2: Country Specific Charts -->
+        <div id="charts-column">
+            <div class="chart-row">
         <!-- Bar Chart -->
         <div class="chart-box">
             <h3>Winners Over Time</h3>
@@ -99,7 +97,8 @@
             <div id="piechartdiv" style="height: 400px; width: 100%;"></div>
         </div>
     </div>
-
+        </div>
+    </div>
 
     <script src="src/chart_controller.js"></script>
     <script src="src/bar_chart.js"></script>
