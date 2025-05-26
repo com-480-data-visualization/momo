@@ -1,4 +1,4 @@
-    // Controller
+// Controller
 window.setSelectedCountry = function (country) {
     if (window.selectedCountry !== undefined) {
         window.selectedCountry = country;
@@ -26,5 +26,12 @@ window.setSelectedCountry = function (country) {
         // If "country-gender-pie-select" should also be set to "map", that needs to be added.
         document.getElementById("country-gender-pie-select").value = "map"; // Added this line
         if (window.updateGenderPieChart) window.updateGenderPieChart();
+    }
+
+    // Add support for the new Age at Award Histogram chart
+    if (window.selectedCountryAwardAgeHistogram !== undefined) {
+        window.selectedCountryAwardAgeHistogram = country;
+        document.getElementById("country-award-age-histogram-select").value = "map";
+        if (window.updateAwardAgeHistogramChart) window.updateAwardAgeHistogramChart();
     }
     };
