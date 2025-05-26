@@ -115,6 +115,22 @@
             </div>
             <div id="genderpiechartdiv"></div>
         </div>
+
+        <!-- Age at Award Histogram -->
+        <div class="chart-box">
+            <h3>Age at Award Histogram</h3>
+            <div class="filter-controls">
+                <label for="country-award-age-histogram-select">Country:</label>
+                <select id="country-award-age-histogram-select">
+                    <option value="All">All</option>
+                    <option value="map" disabled>(Selected from map)</option>
+                    <option value="United States">United States</option>
+                    <option value="Germany">Germany</option>
+                    <option value="France">France</option>
+                </select>
+            </div>
+            <div id="awardAgeHistogramDiv"></div>
+        </div>
         </div><!-- Closing chart-row -->
         </div><!-- Closing charts-column -->
     </div><!-- Closing main-content-area -->
@@ -124,6 +140,7 @@
     <script src="src/bar_chart.js"></script>
     <script src="src/pie_chart.js"></script>
     <script src="src/gender_pie_chart.js"></script>
+    <script src="src/award_age_histogram.js"></script>
 
 
     <h2>General Statistics</h2>
