@@ -18,48 +18,51 @@
 <body>
     <h1>Visualize Nobel prize winners on the world map</h1>
 
-    <!-- Filters and Map + Country Specific Charts -->
-    <div id="map-and-charts-container">
-        <!-- Column 1: Map and its filters -->
-        <div id="map-column">
-            <h2>World Map</h2>
-            <div class="control-panel compact">
-                <!-- Compact Timeline -->
-                <div class="timeline-container">
-                    <h3>Timeline</h3>
-                    <div class="slider-wrapper">
-                        <input type="range" id="timeline-slider" min="1900" max="2024" value="2024" class="slider">
-                        <div id="current-year">2024</div>
-                    </div>
-                </div>
+    <h2>World Map</h2>
 
-                <!-- Dropdown Category Filter -->
-                <div class="category-filter">
-                    <h3>Category</h3>
-                    <div class="dropdown">
-                        <button class="dropdown-toggle">All Categories ▼</button>
-                        <div class="dropdown-menu">
-                            <div class="dropdown-item" data-category="all">All Categories</div>
-                            <div class="dropdown-item" data-category="physics">Physics</div>
-                            <div class="dropdown-item" data-category="chemistry">Chemistry</div>
-                            <div class="dropdown-item" data-category="literature">Literature</div>
-                            <div class="dropdown-item" data-category="peace">Peace</div>
-                        </div>
-                    </div>
-                </div>
+    <!-- Filter Panel: time & categories -->
+    <div class="control-panel compact">
+        <!-- Compact Timeline -->
+        <div class="timeline-container">
+            <h3>Timeline</h3>
+            <div class="slider-wrapper">
+                <input type="range" id="timeline-slider" min="1900" max="2024" value="2024" class="slider">
+                <div id="current-year">2024</div>
             </div>
-            <script src="src/filter_data.js"></script>
-            <div id="chartdiv"></div> <!-- World Map -->
-            <script src="src/world_map.js"></script>
         </div>
 
-        <!-- Column 2: Country Specific Charts -->
-        <div id="charts-column">
+        <!-- Dropdown Category Filter -->
+        <div class="category-filter">
+            <h3>Category</h3>
+            <div class="dropdown">
+                <button class="dropdown-toggle">All Categories ▼</button>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item" data-category="all">All Categories</div>
+                    <div class="dropdown-item" data-category="physics">Physics</div>
+                    <div class="dropdown-item" data-category="chemistry">Chemistry</div>
+                    <div class="dropdown-item" data-category="literature">Literature</div>
+                    <div class="dropdown-item" data-category="peace">Peace</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="src/filter_data.js"></script>
+
+    <div class="main-content-area">
+        <div class="map-column">
+            <h2>World Map</h2>
+            <!-- Chart container must come FIRST -->
+            <div id="chartdiv"></div>
+            <script src="src/world_map.js"></script>
+        </div>
+        <div class="charts-column">
+            <h2>Explore Winners by Country</h2>
             <div class="chart-row">
-        <!-- Bar Chart -->
-        <div class="chart-box">
-            <h3>Winners Over Time</h3>
-            <div class="filter-controls">
+                <!-- Bar Chart -->
+                <div class="chart-box">
+                    <h3>Winners Over Time</h3>
+                    <div class="filter-controls">
                 <label for="type-select">Type:</label>
                 <select id="type-select">
                     <option value="All">All</option>
@@ -94,15 +97,33 @@
                     <option value="France">France</option>
                 </select>
             </div>
-            <div id="piechartdiv" style="height: 400px; width: 100%;"></div>
+            <div id="piechartdiv"></div>
         </div>
-    </div>
+
+        <!-- Gender Pie Chart -->
+        <div class="chart-box">
+            <h3>Gender Distribution</h3>
+            <div class="filter-controls">
+                <label for="country-gender-pie-select">Country:</label>
+                <select id="country-gender-pie-select">
+                    <option value="All">All</option>
+                    <option value="map" disabled>(Selected from map)</option>
+                    <option value="United States">United States</option>
+                    <option value="Germany">Germany</option>
+                    <option value="France">France</option>
+                </select>
+            </div>
+            <div id="genderpiechartdiv"></div>
         </div>
-    </div>
+        </div><!-- Closing chart-row -->
+        </div><!-- Closing charts-column -->
+    </div><!-- Closing main-content-area -->
+
 
     <script src="src/chart_controller.js"></script>
     <script src="src/bar_chart.js"></script>
     <script src="src/pie_chart.js"></script>
+    <script src="src/gender_pie_chart.js"></script>
 
 
     <h2>General Statistics</h2>
