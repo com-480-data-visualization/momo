@@ -340,3 +340,367 @@ footer {
 .category-filter .dropdown-item:hover {
     background-color: #f1f1f1;
 }
+
+/* Time Series Controls */
+.timeseries-controls {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border: 1px solid #e0e0e0;
+}
+
+.timeseries-controls h3 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.timeseries-filter,
+.cumulative-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+.timeseries-filter label,
+.cumulative-filter label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.timeseries-filter label:hover,
+.cumulative-filter label:hover {
+    background-color: #e8e8e8;
+}
+
+.timeseries-filter input[type="checkbox"],
+.cumulative-filter input[type="checkbox"] {
+    margin: 0;
+    cursor: pointer;
+}
+
+#timeserieschartdiv,
+#cumulativechartdiv,
+#countrychartdiv,
+#agechartdiv,
+#genderchartdiv,
+#gendertimechartdiv,
+#interactivegenderchartdiv {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Radio button filters */
+.country-filter,
+.age-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+.country-filter label,
+.age-filter label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.country-filter label:hover,
+.age-filter label:hover {
+    background-color: #e8e8e8;
+}
+
+.country-filter input[type="radio"],
+.age-filter input[type="radio"] {
+    margin: 0;
+    cursor: pointer;
+}
+
+/* Interactive gender filter */
+.interactive-gender-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+.interactive-gender-filter label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.interactive-gender-filter label:hover {
+    background-color: #e8e8e8;
+}
+
+.interactive-gender-filter input[type="checkbox"] {
+    margin: 0;
+    cursor: pointer;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    animation: slideIn 0.3s;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 8px 8px 0 0;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 24px;
+}
+
+.close-modal,
+.close-age-modal,
+.close-gender-modal,
+.close-winner-detail-modal {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-modal:hover,
+.close-age-modal:hover,
+.close-gender-modal:hover,
+.close-winner-detail-modal:hover {
+    color: #333;
+}
+
+.modal-body {
+    padding: 25px;
+}
+
+.country-summary,
+.age-summary,
+.gender-summary {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.category-breakdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.category-item {
+    background: #e9ecef;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #495057;
+}
+
+.winners-list h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+}
+
+.winners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.winner-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 15px;
+    transition: box-shadow 0.2s;
+}
+
+.winner-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.winner-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.winner-header h4 {
+    margin: 0;
+    color: #2E86AB;
+    font-size: 16px;
+    line-height: 1.2;
+}
+
+.winner-year {
+    background: #2E86AB;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.winner-category {
+    color: #6c757d;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.winner-age {
+    color: #6c757d;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.winner-motivation {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #495057;
+    margin-bottom: 8px;
+}
+
+.winner-org {
+    font-size: 12px;
+    color: #6c757d;
+    font-style: italic;
+}
+
+.winner-country {
+    font-size: 12px;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Winner detail modal styles */
+.winner-detail-summary {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.detail-row {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.detail-row strong {
+    color: #333;
+    margin-right: 8px;
+}
+
+.motivation-section {
+    margin-top: 20px;
+}
+
+.motivation-section h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.motivation-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #495057;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #2E86AB;
+}
+
+/* Responsive design for modals */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 2% auto;
+        max-height: 95vh;
+    }
+    
+    .winners-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-header {
+        padding: 15px 20px;
+    }
+    
+    .modal-header h2 {
+        font-size: 20px;
+    }
+    
+    .modal-body {
+        padding: 20px;
+    }
+}

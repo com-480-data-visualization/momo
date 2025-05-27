@@ -152,39 +152,89 @@
     </section>
 
     <section id="general-statistics">
-        <h1>General Statistics</h1>
+        <h1>Nobel Prize Trends Over Time</h1>
         <p>
-            Display general statistics about the Nobel prize winners below the interactive world map.
+            Explore the evolution of Nobel Prize awards across different categories from 1900 to 2024. 
+        This interactive time series visualization shows how the distribution of prizes has changed over more than a century.
         </p>
 
-        <p>
-            For example, we can show the aggregation attributes of all Nobel Prize winners, such as
-            the winner count by year:
-        </p>
+    <!-- Time Series Filter Controls -->
+    <div class="timeseries-controls">
+        <h3>Filter by Category</h3>
+        <div class="timeseries-filter">
+            <label><input type="checkbox" value="total" checked> Total</label>
+            <label><input type="checkbox" value="physics" checked> Physics</label>
+            <label><input type="checkbox" value="chemistry" checked> Chemistry</label>
+            <label><input type="checkbox" value="medicine" checked> Medicine</label>
+            <label><input type="checkbox" value="literature" checked> Literature</label>
+            <label><input type="checkbox" value="peace" checked> Peace</label>
+            <label><input type="checkbox" value="economics" checked> Economics</label>
+        </div>
+    </div>
 
-        <img src="assets/m2_count_years.png" alt="Total number of Nobel Prize winners"
-            style="width: 100%; max-width: 600px; display:block; margin-left: auto; margin-right: auto;" />
+    <!-- Time Series Chart Container -->
+    <div id="timeserieschartdiv" style="width: 100%; height: 500px; margin: 20px 0;"></div>
 
-        <p>
-            We can also show the attribute distribution of all or a subset of Nobel Prize winners, such as the distribution
-            of
-            winning age:
-        </p>
+    <h2>Age Analysis</h2>
+    <p>
+        Explore the age distribution of Nobel Prize winners. Each dot represents a winner - 
+        hover to see detailed information or click for more details. Blue dots are male winners, pink dots are female winners.
+        The dashed line shows the average age for the selected category.
+    </p>
 
-        <img src="assets/m2_physics_age.png" alt="Age distribution of Nobel Prize winners"
-            style="width: 100%; max-width: 600px; display:block; margin-left: auto; margin-right: auto;" />
+    <!-- Age Filter Controls -->
+    <div class="timeseries-controls">
+        <h3>Filter by Category</h3>
+        <div class="age-filter">
+            <label><input type="radio" name="age-category" value="physics" checked> Physics</label>
+            <label><input type="radio" name="age-category" value="chemistry"> Chemistry</label>
+            <label><input type="radio" name="age-category" value="medicine"> Medicine</label>
+            <label><input type="radio" name="age-category" value="literature"> Literature</label>
+            <label><input type="radio" name="age-category" value="peace"> Peace</label>
+            <label><input type="radio" name="age-category" value="economics"> Economics</label>
+        </div>
+    </div>
 
-        <p>
-            And we can show the correlation between two attributes, such as the correlation between
-            the birth place and the affiliation place of the Nobel Prize winners:
-        </p>
-        <img src="assets/m2_transition.jpg" alt="Migration of Nobel Prize winners"
-            style="width: 100%; max-width: 600px; display:block; margin-left: auto; margin-right: auto;" />
-    </section>
+    <!-- Age Chart Container -->
+    <div id="agechartdiv" style="width: 100%; height: 600px; margin: 20px 0;"></div>
 
-    <footer>
-        <p>&copy; 2025 Nobel Prize Visualization. All rights reserved.</p>
-    </footer>
+    <h2>Birth vs Organization Country Flow</h2>
+    <p>
+        The Sankey diagram below shows where Nobel laureates were born and where the organization they worked for is located when receiving the prize.  The thickness of each flow represents the number of laureates following that path.
+    </p>
+    
+    <!-- Flow Chart Column Headers -->
+    <div class="flow-headers" style="display: flex; justify-content: space-between; margin: 10px 50px; font-weight: bold; font-size: 16px; color: #666;">
+        <div style="flex: 1; text-align: left;">Place of Birth</div>
+        <div style="flex: 1; text-align: right;">Place of Residence</div>
+    </div>
+    
+    <div id="flowchartdiv" style="width: 100%; height: 750px; margin: 0 0 20px 0;"></div>
+
+    <script src="src/timeseries_chart.js"></script>
+    <script src="src/country_analysis.js"></script>
+    <script src="src/age_analysis.js"></script>
+    <script src="src/flow_birth_org.js"></script>
+    <script>
+        // Initialize all charts when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initTimeSeriesChart();
+            initAgeChart();
+            initBirthOrgFlowChart();
+            
+            // Add event listeners for filter checkboxes
+            const timeseriesCheckboxes = document.querySelectorAll('.timeseries-filter input[type="checkbox"]');
+            timeseriesCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateTimeSeriesFilter);
+            });
+            
+            // Add event listeners for age filter radio buttons
+            const ageRadios = document.querySelectorAll('input[name="age-category"]');
+            ageRadios.forEach(radio => {
+                radio.addEventListener('change', updateAgeFilter);
+            });
+        });
+    </script>
 </body>
 
 </html>
