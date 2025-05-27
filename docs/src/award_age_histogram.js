@@ -178,7 +178,7 @@ function setupHistogramChart(processedNobelData) {
 // --- Data Loading and Pre-processing using PapaParse ---
 if (typeof Papa !== 'undefined') {
     // !! IMPORTANT: Replace 'nobel_laureates_data.csv' with the actual path.
-    fetch('../nobel_laureates_data.csv')
+    fetch('/momo/nobel_laureates_data.csv')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
