@@ -155,8 +155,8 @@ async function initBirthOrgFlowChart () {
   // 最简单的方法：直接使用显示名称，给左右两侧添加前缀来避免冲突
   const finalLinks = filteredLinks.map(link => {
     return {
-      from: `🌍 ${link.from}`,        // 给出生地添加地球emoji前缀
-      to: `🏢 ${link.to}`,            // 给工作地添加建筑emoji前缀
+      from: `🌍 ${link.from}`,        
+      to: `🏢 ${link.to}`,        
       value: link.value
     };
   });
