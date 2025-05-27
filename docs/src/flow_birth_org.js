@@ -149,37 +149,19 @@ async function initBirthOrgFlowChart () {
   let filteredLinks = links.filter(link => link.value >= MIN_FLOW_SIZE);
   console.log(`Filtered to links with flow >= ${MIN_FLOW_SIZE}:`, filteredLinks.length, "links remaining");
   
-  // Create a simplified Sankey structure with two distinct layers
-  // Birth countries on the left, organization countries on the right
-  const birthCountries = new Set();
-  const orgCountries = new Set();
-  
-  filteredLinks.forEach(link => {
-    birthCountries.add(link.from);
-    orgCountries.add(link.to);
-  });
-  
-  console.log("Birth countries:", Array.from(birthCountries));
-  console.log("Organization countries:", Array.from(orgCountries));
-  
   // Create a clean two-layer structure by separating birth and organization countries
   console.log("Creating two-layer structure to eliminate cycles...");
   
-  // Create links with display names directly
+  // 最简单的方法：直接使用显示名称，给左右两侧添加前缀来避免冲突
   const finalLinks = filteredLinks.map(link => {
     return {
-      from: `Birth_${link.from}`,      // Use different prefix for display
-      to: `Residence_${link.to}`,      // Use different prefix for display  
-      value: link.value,
-      fromName: link.from,             // Store clean names
-      toName: link.to
+      from: `🌍 ${link.from}`,        // 给出生地添加地球emoji前缀
+      to: `🏢 ${link.to}`,            // 给工作地添加建筑emoji前缀
+      value: link.value
     };
   });
   
-  console.log("Two-layer structure created successfully");
-  
-  console.log(`Final links count: ${finalLinks.length}`);
-  console.log("Final links structure:", finalLinks.slice(0, 5)); // Show first 5 for debugging
+  console.log("Final links with emoji prefixes:", finalLinks.slice(0, 3));
   
   // Use final cleaned links
   links = finalLinks;
@@ -214,9 +196,9 @@ async function initBirthOrgFlowChart () {
   try {
     if (chart.links && chart.links.template) {
       chart.links.template.setAll({
-        fillOpacity : 0.6,
-        tooltipText : "{sourceId} → {targetId}: {value}"
+        fillOpacity: 0.6
       });
+      
       console.log("Links styled successfully");
     }
   } catch (error) {
@@ -226,73 +208,31 @@ async function initBirthOrgFlowChart () {
   try {
     if (chart.nodes && chart.nodes.template) {
       chart.nodes.template.setAll({
-        tooltipText : "{id}: {sum}",
-        draggable   : false
+        draggable: false
       });
       
-      // Add label formatter to clean up node names
+      // 设置节点标签显示
       chart.nodes.template.get("label").setAll({
-        text: "{id}",
         oversizedBehavior: "truncate",
-        maxWidth: 120
+        maxWidth: 120,
+        fontSize: 12
       });
       
-      chart.nodes.template.get("label").adapters.add("text", function(text, target) {
-        const node = target.dataItem;
-        if (node) {
-          const id = node.get("id");
-          if (id && id.startsWith("Birth_")) {
-            return id.replace("Birth_", "");
-          } else if (id && id.startsWith("Residence_")) {
-            return id.replace("Residence_", "");
-          }
-        }
-        return text;
-      });
       console.log("Nodes styled successfully");
-      
-      // Try to add color adapter
-      chart.nodes.template.adapters.add("fill", (fill, node) => {
-        const name = node.get("id");
-        
-        // Handle the new naming scheme
-        if (name.startsWith("Residence_")) {
-          const orgName = name.replace("Residence_", "");
-          if (orgName === "Other Organizations") {
-            return am5.color("#757575"); // Gray for organizations
-          }
-          const region = countryToRegion(orgName);
-          return am5.color.lighten(REGION_COLORS[region] || REGION_COLORS.Other, 0.3);
-        } else if (name.startsWith("Birth_")) {
-          const birthName = name.replace("Birth_", "");
-          const region = countryToRegion(birthName === "Other Countries" ? "" : birthName);
-          return REGION_COLORS[region] || REGION_COLORS.Other;
-        }
-        
-        // Fallback
-        return REGION_COLORS.Other;
-      });
-      console.log("Node color adapter added successfully");
     }
   } catch (error) {
     console.log("Failed to style nodes:", error.message);
   }
 
   // 6. Set data -------------------------------------------------------------
-  console.log("Setting chart data with filtered links:", links);
+  console.log("Setting chart data with emoji-prefixed links:", links);
   
-  // Try immediate data setting
   try {
-    console.log("Attempting to set chart data immediately...");
-    console.log("Chart data property exists:", !!chart.data);
-    
     if (chart.data && typeof chart.data.setAll === 'function') {
       chart.data.setAll(links);
       console.log("Chart data set successfully!");
-      
     } else {
       console.error("chart.data.setAll is not available");
-      console.log("Chart properties:", Object.getOwnPropertyNames(chart));
     }
   } catch (error) {
     console.error("Error setting chart data:", error);
