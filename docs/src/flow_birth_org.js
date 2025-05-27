@@ -286,6 +286,29 @@ async function initBirthOrgFlowChart () {
       chart.data.setAll(links);
       console.log("Chart data set successfully!");
       
+      // Clean up labels after chart renders
+      setTimeout(() => {
+        console.log("Starting label cleanup...");
+        
+        // Find all text elements in the chart and clean them
+        const chartDiv = document.getElementById("flowchartdiv");
+        if (chartDiv) {
+          const textElements = chartDiv.querySelectorAll("text");
+          textElements.forEach(textEl => {
+            let text = textEl.textContent;
+            if (text && text.startsWith("Birth_")) {
+              textEl.textContent = text.replace("Birth_", "");
+              console.log(`Cleaned: ${text} -> ${textEl.textContent}`);
+            } else if (text && text.startsWith("Residence_")) {
+              textEl.textContent = text.replace("Residence_", "");
+              console.log(`Cleaned: ${text} -> ${textEl.textContent}`);
+            }
+          });
+        }
+        
+        console.log("Label cleanup completed");
+      }, 1000);
+      
     } else {
       console.error("chart.data.setAll is not available");
       console.log("Chart properties:", Object.getOwnPropertyNames(chart));
