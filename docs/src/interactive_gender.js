@@ -28,7 +28,7 @@ function calculateAge(birthDate, awardYear) {
 // Load and process data for interactive gender analysis
 async function loadInteractiveGenderData() {
     try {
-        const response = await fetch('../nobel_laureates_data.csv');
+        const response = await fetch('../../nobel_laureates_data.csv');
         const csvText = await response.text();
         
         // Parse CSV data

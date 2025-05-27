@@ -102,7 +102,7 @@ function setupChart(nobelData) {
 
 // --- Data Loading using PapaParse ---
 // !! IMPORTANT: Replace 'nobel_laureates_data.csv' with the actual path.
-fetch('../nobel_laureates_data.csv')
+fetch('../../nobel_laureates_data.csv')
     .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);

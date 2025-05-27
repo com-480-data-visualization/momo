@@ -34,7 +34,7 @@ function calculateAge(birthDate, awardYear) {
 // Load and process data for age analysis
 async function loadAgeData() {
     try {
-        const response = await fetch('../nobel_laureates_data.csv');
+        const response = await fetch('../../nobel_laureates_data.csv');
         const csvText = await response.text();
         
         // Parse CSV data

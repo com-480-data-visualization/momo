@@ -5,7 +5,7 @@ let timeSeriesData = [];
 // Load and process data for time series
 async function loadTimeSeriesData() {
     try {
-        const response = await fetch('../nobel_laureates_data.csv');
+        const response = await fetch('../../nobel_laureates_data.csv');
         const csvText = await response.text();
         
         // Parse CSV data
