@@ -13,6 +13,8 @@
     <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/flow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 
 <body>
@@ -55,6 +57,8 @@
                         <div class="dropdown-item" data-category="chemistry">Chemistry</div>
                         <div class="dropdown-item" data-category="literature">Literature</div>
                         <div class="dropdown-item" data-category="peace">Peace</div>
+                        <div class="dropdown-item" data-category="medicine">Medicine</div>
+                        <div class="dropdown-item" data-category="economics">Economics</div>
                     </div>
                 </div>
             </div>
@@ -77,9 +81,6 @@
                             <select id="country-select">
                                 <option value="All">All</option>
                                 <option value="map" disabled>(Selected from map)</option>
-                                <option value="United States">United States</option>
-                                <option value="Germany">Germany</option>
-                                <option value="France">France</option>
                             </select>
                         </div>
                         <div id="barchartdiv"></div>
@@ -93,9 +94,6 @@
                             <select id="country-pie-select">
                                 <option value="All">All</option>
                                 <option value="map" disabled>(Selected from map)</option>
-                                <option value="United States">United States</option>
-                                <option value="Germany">Germany</option>
-                                <option value="France">France</option>
                             </select>
                         </div>
                         <div id="piechartdiv"></div>
@@ -109,9 +107,6 @@
                             <select id="country-gender-pie-select">
                                 <option value="All">All</option>
                                 <option value="map" disabled>(Selected from map)</option>
-                                <option value="United States">United States</option>
-                                <option value="Germany">Germany</option>
-                                <option value="France">France</option>
                             </select>
                         </div>
                         <div id="genderpiechartdiv"></div>
@@ -125,9 +120,6 @@
                             <select id="country-award-age-histogram-select">
                                 <option value="All">All</option>
                                 <option value="map" disabled>(Selected from map)</option>
-                                <option value="United States">United States</option>
-                                <option value="Germany">Germany</option>
-                                <option value="France">France</option>
                             </select>
                         </div>
                         <div id="awardAgeHistogramDiv"></div>
