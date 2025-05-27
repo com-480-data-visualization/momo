@@ -108,14 +108,20 @@ function setupHistogramChart(processedNobelData) {
 
         // ✅ Expose update function globally
         window.updateAwardAgeHistogramChart = function () {
-            const dropdownEl = document.getElementById("country-award-age-histogram-select");
+           const dropdownEl = document.getElementById("country-award-age-histogram-select");
             const selected = dropdownEl.value;
             const country = selected === "map" ? window.selectedCountryAwardAgeHistogram : selected;
+            const category = window.selectedMapCategory || "all"; // **获取全局类别**
 
-            // Filter data based on selected country (already pre-filtered for age/gender)
-            const filteredLaureates = validData.filter(laureate =>
-                country === "All" || laureate.bornCountry === country
-            );
+            const filteredLaureates = validData.filter(laureate => {
+                const countryMatch = country === "All" || laureate.bornCountry === country;
+                // **新增类别匹配**
+                const categoryMatch = category === "all" || (laureate.category && laureate.category.toLowerCase() === category);
+                // 确保其他条件也满足
+                return countryMatch && categoryMatch && !isNaN(laureate.ageAtAward) &&
+                       laureate.ageAtAward > 0 && laureate.ageAtAward < 120 &&
+                       laureate.gender && (laureate.gender.toLowerCase() === 'male' || laureate.gender.toLowerCase() === 'female');
+            });
 
             // Data binning setup
             const binSize = 10;

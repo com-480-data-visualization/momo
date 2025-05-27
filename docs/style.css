@@ -247,3 +247,96 @@ footer {
     width: 100%;
     font-size: 14px;
 }
+
+#custom-map-legend {
+    position: relative; /* 或者 relative，取决于您想放哪里 */
+    bottom: 20px;       /* 示例：放在地图右下角 */
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* 半透明背景 */
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;      /* 确保在地图上层 */
+    font-family: sans-serif;
+    font-size: 12px;
+}
+
+#custom-map-legend h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.legend-item {
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.legend-item span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border: 1px solid #FFF; /* 可选：给色块加个边框 */
+}
+
+/* 类别筛选器容器 */
+.category-filter {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* 下拉菜单的相对定位容器 */
+.category-filter .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* 下拉按钮样式 (您可以根据需要调整) */
+.category-filter .dropdown-toggle {
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.category-filter .dropdown-toggle:hover {
+    background-color: #e0e0e0;
+}
+
+/* 下拉菜单本身 - 默认隐藏 */
+.category-filter .dropdown-menu {
+    display: none; /* <-- 关键：默认隐藏 */
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 180px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1001; /* 确保在图例和地图之上 */
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    margin-top: 5px; /* 与按钮的距离 */
+}
+
+/* 当菜单有 'show' 类时，显示它 */
+.category-filter .dropdown-menu.show {
+    display: block; /* <-- 关键：点击后显示 */
+}
+
+/* 下拉菜单项样式 */
+.category-filter .dropdown-item {
+    color: black;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+/* 鼠标悬停在选项上 */
+.category-filter .dropdown-item:hover {
+    background-color: #f1f1f1;
+}

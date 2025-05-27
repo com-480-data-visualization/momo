@@ -65,13 +65,28 @@
         </div>
 
         <div class="main-content-area">
+            
             <div class="map-column">
+                               
                 <!-- Chart container must come FIRST -->
+             <div id="custom-map-legend">
+                <h4>Nobel Laureates Count</h4>
+                <div class="legend-item"><span style="background-color: #084594;"></span> > 200</div>
+                <div class="legend-item"><span style="background-color: #2171B5;"></span> 101 - 200</div>
+                <div class="legend-item"><span style="background-color: #4292C6;"></span> 51 - 100</div>
+                <div class="legend-item"><span style="background-color: #6BAED6;"></span> 21 - 50</div>
+                <div class="legend-item"><span style="background-color: #9ECAE1;"></span> 6 - 20</div>
+                <div class="legend-item"><span style="background-color: #C6DBEF;"></span> 1 - 5</div>
+                <div class="legend-item"><span style="background-color: #CCCCCC;"></span> 0 / No Data</div>
+            </div>
                 <div id="chartdiv"></div>
                 <script src="src/world_map.js"></script>
             </div>
             <div class="charts-column">
                 <h2>Explore Winners by Country</h2>
+                <h3 id="current-country-display" style="text-align: center; color: #555; margin-bottom: 20px;">
+                    Selected: All Countries
+                </h3>
                 <div class="chart-row">
                     <!-- Bar Chart -->
                     <div class="chart-box">

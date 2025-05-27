@@ -1,6 +1,8 @@
 // Controller
 window.setSelectedCountry = function (countryFromMap) {
 
+    window.updateCountryDisplay(countryFromMap);
+
     // --- 国家名称映射逻辑 ---
     const countryNameMap = {
         "United States": "USA",
@@ -67,4 +69,13 @@ window.setSelectedCountry = function (countryFromMap) {
     }
     // 确保您的 award_age_histogram.js 中有 updateAwardAgeHistogramChart 函数
     if (window.updateAwardAgeHistogramChart) window.updateAwardAgeHistogramChart();
+};
+
+window.updateCountryDisplay = function(countryName) {
+    const displayElement = document.getElementById("current-country-display");
+    if (displayElement) {
+        // 如果是 'All' 或空，显示 'All Countries'，否则显示国家名称。
+        const displayName = (countryName === "All" || !countryName) ? "All Countries" : countryName;
+        displayElement.textContent = "Selected: " + displayName;
+    }
 };

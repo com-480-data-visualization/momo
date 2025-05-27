@@ -72,42 +72,31 @@ function setupGenderPieChart(nobelData) {
         window.updateGenderPieChart = function () {
             const dropdownEl = document.getElementById("country-gender-pie-select");
             const selected = dropdownEl.value;
-            // Use its dedicated global variable
             const country = selected === "map" ? window.selectedCountryGenderPie : selected;
+            const category = window.selectedMapCategory || "all"; // **获取全局类别**
 
-            // Filter data based on selected country
-            const filtered = validData.filter((d) =>
-                country === "All" || d.bornCountry === country
-            );
-
-            // Group filtered data by gender and count laureates
-            const grouped = {};
-            filtered.forEach(d => {
-                // Handle gender: check for 'male', 'female', or treat as 'Organization/Unknown'
-                let genderCategory = d.gender ? d.gender.trim().toLowerCase() : '';
-                if (genderCategory === 'female') {
-                    genderCategory = 'Female';
-                } else if (genderCategory === 'male') {
-                    genderCategory = 'Male';
-                } else {
-                    // If no gender or not 'male'/'female', assume it's an organization or unknown.
-                    // Check if 'organizationName' exists to be more specific.
-                    genderCategory = d.organizationName ? 'Organization' : 'Unknown';
-                }
-                grouped[genderCategory] = (grouped[genderCategory] || 0) + 1; // Count +1
+            const filtered = validData.filter((d) => {
+                const countryMatch = country === "All" || d.bornCountry === country;
+                // **新增类别匹配**
+                const categoryMatch = category === "all" || (d.category && d.category.toLowerCase() === category);
+                return countryMatch && categoryMatch; // **同时满足**
             });
 
-            // Format data for the chart
+            // ... (后续的分组、设置数据代码保持不变) ...
+            const grouped = {};
+            filtered.forEach(d => {
+                let genderCategory = d.gender ? d.gender.trim().toLowerCase() : '';
+                if (genderCategory === 'female') genderCategory = 'Female';
+                else if (genderCategory === 'male') genderCategory = 'Male';
+                else genderCategory = d.organizationName ? 'Organization' : 'Unknown';
+                grouped[genderCategory] = (grouped[genderCategory] || 0) + 1;
+            });
             const chartData = Object.entries(grouped).map(([gender, value]) => ({
                 gender,
                 value
             }));
-
-            // Set data to the series and legend
             series.data.setAll(chartData);
             legend.data.setAll(series.dataItems);
-
-            // Animate the update
             series.appear(1000, 100);
         };
 

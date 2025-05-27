@@ -107,33 +107,29 @@ function setupBarChart(nobelData) {
 
 
         // ✅ Expose update function globally
-        window.updateBarChart = function () {
+         window.updateBarChart = function () {
             const countrySelectValue = document.getElementById("country-select").value;
-            // Use the globally set country if 'map' is selected, otherwise use dropdown value
             const country = countrySelectValue === "map" ? window.selectedCountry : countrySelectValue;
+            const category = window.selectedMapCategory || "all"; // **获取全局类别**
 
-            // Filter the *valid* data based on the selected country
             const filtered = validData.filter((d) => {
-                return country === "All" || d.bornCountry === country;
+                const countryMatch = country === "All" || d.bornCountry === country;
+                // **新增类别匹配**
+                const categoryMatch = category === "all" || (d.category && d.category.toLowerCase() === category);
+                return countryMatch && categoryMatch; // **同时满足**
             });
 
-            // Group by year and count laureates
+            // ... (后续的分组、排序、设置数据代码保持不变) ...
             const grouped = {};
             filtered.forEach((d) => {
-                grouped[d.year] = (grouped[d.year] || 0) + 1; // Count each laureate
+                grouped[d.year] = (grouped[d.year] || 0) + 1;
             });
-
-            // Format data for the chart and sort by year
             let chartData = Object.entries(grouped).map(([year, count]) => ({
                 year,
                 count
-            })).sort((a, b) => parseInt(a.year) - parseInt(b.year)); // Sort chronologically
-
-            // Update X-axis and Series data
+            })).sort((a, b) => parseInt(a.year) - parseInt(b.year));
             xAxis.data.setAll(chartData);
             series.data.setAll(chartData);
-
-            // Animate the chart
             series.appear(1000);
             chart.appear(1000, 100);
         };
