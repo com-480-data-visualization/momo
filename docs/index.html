@@ -13,97 +13,143 @@
     <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/flow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 
 <body>
-    <h1>Visualize Nobel prize winners on the world map</h1>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#world-map">World Map</a></li>
+                <li><a href="#general-statistics">General Statistics</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <h2>World Map</h2>
+    <section id="introduction">
+        <h1>Introduction</h1>
+        <p>Welcome to the Nobel Prize Visualization website. Explore the data and insights about Nobel Prize winners through interactive charts and maps.</p>
+    </section>
 
-    <!-- Filter Panel: time & categories -->
-    <div class="control-panel compact">
-        <!-- Compact Timeline -->
-        <div class="timeline-container">
-            <h3>Timeline</h3>
-            <div class="slider-wrapper">
-                <input type="range" id="timeline-slider" min="1900" max="2024" value="2024" class="slider">
-                <div id="current-year">2024</div>
+    <section id="world-map">
+        <h1>World Map</h1>
+        <h2>Visualize Nobel prize winners on the world map</h2>
+        <div class="control-panel compact">
+            <!-- Compact Timeline -->
+            <div class="timeline-container">
+                <h3>Timeline</h3>
+                <div class="slider-wrapper">
+                    <input type="range" id="timeline-slider" min="1900" max="2024" value="2024" class="slider">
+                    <div id="current-year">2024</div>
+                </div>
             </div>
-        </div>
 
-        <!-- Dropdown Category Filter -->
-        <div class="category-filter">
-            <h3>Category</h3>
-            <div class="dropdown">
-                <button class="dropdown-toggle">All Categories ▼</button>
-                <div class="dropdown-menu">
-                    <div class="dropdown-item" data-category="all">All Categories</div>
-                    <div class="dropdown-item" data-category="physics">Physics</div>
-                    <div class="dropdown-item" data-category="chemistry">Chemistry</div>
-                    <div class="dropdown-item" data-category="literature">Literature</div>
-                    <div class="dropdown-item" data-category="peace">Peace</div>
+            <!-- Dropdown Category Filter -->
+            <div class="category-filter">
+                <h3>Category</h3>
+                <div class="dropdown">
+                    <button class="dropdown-toggle">All Categories ▼</button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item" data-category="all">All Categories</div>
+                        <div class="dropdown-item" data-category="physics">Physics</div>
+                        <div class="dropdown-item" data-category="chemistry">Chemistry</div>
+                        <div class="dropdown-item" data-category="literature">Literature</div>
+                        <div class="dropdown-item" data-category="peace">Peace</div>
+                        <div class="dropdown-item" data-category="medicine">Medicine</div>
+                        <div class="dropdown-item" data-category="economics">Economics</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="src/filter_data.js"></script>
-
-    <!-- Chart container must come FIRST -->
-    <div id="chartdiv"></div>
-
-    <script src="src/world_map.js"></script>
-
-    <!-- Charts by Country -->
-    <h2>Explore Winners by Country</h2>
-
-    <div class="chart-row">
-        <!-- Bar Chart -->
-        <div class="chart-box">
-            <h3>Winners Over Time</h3>
-            <div class="filter-controls">
-                <label for="type-select">Type:</label>
-                <select id="type-select">
-                    <option value="All">All</option>
-                    <option value="Physics">Physics</option>
-                    <option value="Peace">Peace</option>
-                    <option value="Chemistry">Chemistry</option>
-                    <option value="Literature">Literature</option>
-                </select>
-
-                <label for="country-select">Country:</label>
-                <select id="country-select">
-                    <option value="All">All</option>
-                    <option value="map" disabled>(Selected from map)</option>
-                    <option value="United States">United States</option>
-                    <option value="Germany">Germany</option>
-                    <option value="France">France</option>
-                </select>
+        <div class="main-content-area">
+            
+            <div class="map-column">
+                               
+                <!-- Chart container must come FIRST -->
+             <div id="custom-map-legend">
+                <h4>Nobel Laureates Count</h4>
+                <div class="legend-item"><span style="background-color: #084594;"></span> > 200</div>
+                <div class="legend-item"><span style="background-color: #2171B5;"></span> 101 - 200</div>
+                <div class="legend-item"><span style="background-color: #4292C6;"></span> 51 - 100</div>
+                <div class="legend-item"><span style="background-color: #6BAED6;"></span> 21 - 50</div>
+                <div class="legend-item"><span style="background-color: #9ECAE1;"></span> 6 - 20</div>
+                <div class="legend-item"><span style="background-color: #C6DBEF;"></span> 1 - 5</div>
+                <div class="legend-item"><span style="background-color: #CCCCCC;"></span> 0 / No Data</div>
             </div>
-            <div id="barchartdiv"></div>
-        </div>
-
-        <!-- Pie Chart -->
-        <div class="chart-box">
-            <h3>Category Distribution</h3>
-            <div class="filter-controls">
-                <label for="country-pie-select">Country:</label>
-                <select id="country-pie-select">
-                    <option value="All">All</option>
-                    <option value="map" disabled>(Selected from map)</option>
-                    <option value="United States">United States</option>
-                    <option value="Germany">Germany</option>
-                    <option value="France">France</option>
-                </select>
+                <div id="chartdiv"></div>
+                <script src="src/world_map.js"></script>
             </div>
-            <div id="piechartdiv" style="height: 400px; width: 100%;"></div>
-        </div>
-    </div>
+            <div class="charts-column">
+                <h2>Explore Winners by Country</h2>
+                <h3 id="current-country-display" style="text-align: center; color: #555; margin-bottom: 20px;">
+                    Selected: All Countries
+                </h3>
+                <div class="chart-row">
+                    <!-- Bar Chart -->
+                    <div class="chart-box">
+                        <h3>Winners Over Time</h3>
+                        <div class="filter-controls">
+                            <label for="country-select">Country:</label>
+                            <select id="country-select">
+                                <option value="All">All</option>
+                                <option value="map" disabled>(Selected from map)</option>
+                            </select>
+                        </div>
+                        <div id="barchartdiv"></div>
+                    </div>
+
+                    <!-- Pie Chart -->
+                    <div class="chart-box">
+                        <h3>Category Distribution</h3>
+                        <div class="filter-controls">
+                            <label for="country-pie-select">Country:</label>
+                            <select id="country-pie-select">
+                                <option value="All">All</option>
+                                <option value="map" disabled>(Selected from map)</option>
+                            </select>
+                        </div>
+                        <div id="piechartdiv"></div>
+                    </div>
+
+                    <!-- Gender Pie Chart -->
+                    <div class="chart-box">
+                        <h3>Gender Distribution</h3>
+                        <div class="filter-controls">
+                            <label for="country-gender-pie-select">Country:</label>
+                            <select id="country-gender-pie-select">
+                                <option value="All">All</option>
+                                <option value="map" disabled>(Selected from map)</option>
+                            </select>
+                        </div>
+                        <div id="genderpiechartdiv"></div>
+                    </div>
+
+                    <!-- Age at Award Histogram -->
+                    <div class="chart-box">
+                        <h3>Age at Award Histogram</h3>
+                        <div class="filter-controls">
+                            <label for="country-award-age-histogram-select">Country:</label>
+                            <select id="country-award-age-histogram-select">
+                                <option value="All">All</option>
+                                <option value="map" disabled>(Selected from map)</option>
+                            </select>
+                        </div>
+                        <div id="awardAgeHistogramDiv"></div>
+                    </div>
+                </div><!-- Closing chart-row -->
+            </div><!-- Closing charts-column -->
+        </div><!-- Closing main-content-area -->
 
 
-    <script src="src/chart_controller.js"></script>
-    <script src="src/bar_chart.js"></script>
-    <script src="src/pie_chart.js"></script>
+        <script src="src/chart_controller.js"></script>
+        <script src="src/bar_chart.js"></script>
+        <script src="src/pie_chart.js"></script>
+        <script src="src/gender_pie_chart.js"></script>
+        <script src="src/award_age_histogram.js"></script>
+    </section>
 
 
     <h2>Nobel Prize Trends Over Time</h2>
