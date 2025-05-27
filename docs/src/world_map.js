@@ -281,7 +281,11 @@ am5.ready(function () {
     // --- 加载数据并进行初始渲染 ---
     console.log("Attempting to load data...");
     if (typeof Papa !== 'undefined') {
-        fetch('nobel_laureates_data.csv') // **确保路径正确!**
+        // Dynamic path that works both locally and on GitHub Pages
+        const dataPath = window.location.pathname.includes('/momo/') 
+            ? '/momo/nobel_laureates_data.csv' 
+            : '../nobel_laureates_data.csv';
+        fetch(dataPath) // **确保路径正确!**
             .then(response => {
                 if (!response.ok) throw new Error(`Workspace failed: ${response.statusText}`);
                 return response.text();

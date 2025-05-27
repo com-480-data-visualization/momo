@@ -57,7 +57,11 @@ async function initBirthOrgFlowChart () {
   console.log("Starting initBirthOrgFlowChart");
   
   // 1. Load CSV -------------------------------------------------------------
-  const resp = await fetch("nobel_laureates_data.csv");
+  // Dynamic path that works both locally and on GitHub Pages
+  const dataPath = window.location.pathname.includes('/momo/') 
+      ? '/momo/nobel_laureates_data.csv' 
+      : '../nobel_laureates_data.csv';
+  const resp = await fetch(dataPath);
   const csv  = await resp.text();
   const lines   = csv.split(/\n|\r/).filter(l => l.trim().length);
   const headers = lines.shift().split(",");

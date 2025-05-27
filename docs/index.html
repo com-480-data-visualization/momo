@@ -218,20 +218,45 @@
     <script>
         // Initialize all charts when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            initTimeSeriesChart();
-            initAgeChart();
-            initBirthOrgFlowChart();
+            // Add a small delay to ensure all scripts are fully loaded
+            setTimeout(function() {
+                if (typeof initTimeSeriesChart === 'function') {
+                    initTimeSeriesChart();
+                } else {
+                    console.error('initTimeSeriesChart function not found');
+                }
+                
+                if (typeof initAgeChart === 'function') {
+                    initAgeChart();
+                } else {
+                    console.error('initAgeChart function not found');
+                }
+                
+                if (typeof initBirthOrgFlowChart === 'function') {
+                    initBirthOrgFlowChart();
+                } else {
+                    console.error('initBirthOrgFlowChart function not found');
+                }
+            }, 100);
             
             // Add event listeners for filter checkboxes
             const timeseriesCheckboxes = document.querySelectorAll('.timeseries-filter input[type="checkbox"]');
             timeseriesCheckboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', updateTimeSeriesFilter);
+                checkbox.addEventListener('change', function() {
+                    if (typeof updateTimeSeriesFilter === 'function') {
+                        updateTimeSeriesFilter();
+                    }
+                });
             });
             
             // Add event listeners for age filter radio buttons
             const ageRadios = document.querySelectorAll('input[name="age-category"]');
             ageRadios.forEach(radio => {
-                radio.addEventListener('change', updateAgeFilter);
+                radio.addEventListener('change', function() {
+                    if (typeof updateAgeFilter === 'function') {
+                        updateAgeFilter();
+                    }
+                });
             });
         });
     </script>
