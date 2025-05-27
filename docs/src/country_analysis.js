@@ -6,7 +6,7 @@ let allWinnersData = [];
 // Load and process data for country analysis
 async function loadCountryData() {
     try {
-        const response = await fetch('../../nobel_laureates_data.csv');
+        const response = await fetch('../nobel_laureates_data.csv');
         const csvText = await response.text();
         
         // Parse CSV data
