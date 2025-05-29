@@ -303,7 +303,7 @@ am5.ready(function () {
                 if (e.target.classList.contains("dropdown-item")) {
                     e.stopPropagation(); // 阻止冒泡
                     window.selectedMapCategory = e.target.getAttribute("data-category");
-                    dropdownToggle.textContent = e.target.textContent + " ▼"; // 更新按钮文本
+                    dropdownToggle.textContent = e.target.textContent; // 更新按钮文本
                     window.updateMap(); // 更新地图
 
                     // **更新其他图表**
