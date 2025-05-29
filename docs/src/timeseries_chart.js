@@ -134,7 +134,7 @@ function createTimeSeriesChart(data) {
     categories.forEach(category => {
         const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
         
-        series[category] = chart.series.push(am5xy.LineSeries.new(root, {
+        const seriesInstance = am5xy.LineSeries.new(root, {
             name: categoryName,
             xAxis: xAxis,
             yAxis: yAxis,
@@ -146,7 +146,28 @@ function createTimeSeriesChart(data) {
                 pointerOrientation: "horizontal",
                 labelText: "{name}: {valueY} prizes in {valueX.formatDate('yyyy')}"
             })
-        }));
+        });
+        
+        // 添加tooltip适配器，根据筛选状态控制显示
+        seriesInstance.get("tooltip").adapters.add("forceHidden", function(forceHidden, target) {
+            // 获取当前选中的类别
+            const selectedCategories = [];
+            const checkboxes = document.querySelectorAll('.timeseries-filter input[type="checkbox"]:checked');
+            checkboxes.forEach(checkbox => {
+                selectedCategories.push(checkbox.value);
+            });
+            
+            // 如果当前系列不在选中的类别中，隐藏tooltip
+            const currentCategory = category.toLowerCase();
+            if (selectedCategories.length > 0 && !selectedCategories.includes(currentCategory)) {
+                return true; // 隐藏tooltip
+            }
+            
+            // 否则显示tooltip
+            return false;
+        });
+        
+        series[category] = chart.series.push(seriesInstance);
         
         series[category].strokes.template.setAll({
             strokeWidth: category === 'total' ? 3 : 2,
