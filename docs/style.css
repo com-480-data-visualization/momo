@@ -585,7 +585,18 @@ h3#current-country-display {
 }
 
 
-#timeserieschartdiv,
+#timeserieschartdiv {
+    background: white;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-light-color);
+    box-shadow: var(--shadow-md);
+    padding: 15px 15px 50px 15px; /* 增加底部填充以容纳legend */
+    margin: 0; /* 确保没有额外的边距 */
+    box-sizing: border-box; /* 确保填充不影响总宽度 */
+    width: 100%; /* 确保全宽 */
+    max-width: none; /* 移除最大宽度限制 */
+}
+
 #agechartdiv,
 #flowchartdiv {
     background: white;
@@ -593,13 +604,17 @@ h3#current-country-display {
     border: 1px solid var(--border-light-color);
     box-shadow: var(--shadow-md);
     padding: 15px; /* Padding around charts */
+    margin: 0; /* 确保没有额外的边距 */
+    box-sizing: border-box; /* 确保填充不影响总宽度 */
+    width: 100%; /* 确保全宽 */
+    max-width: none; /* 移除最大宽度限制 */
 }
 
 .flow-headers {
     font-size: 1.2em;
     font-family: var(--font-heading);
     color: var(--dark-text);
-    padding: 0 30px;
+    padding: 0;
     margin-bottom: 20px;
     font-weight: 500;
 }
@@ -861,4 +876,11 @@ footer {
     .content-section { padding: 20px 15px;}
     .content-section > h1, .content-section > h2 { font-size: 1.5em; margin-bottom: 20px; padding-bottom: 15px;}
     .content-section p { font-size: 1em; }
+}
+
+/* 确保图表区域与筛选器区域有相同的视觉边界 */
+.chart-container-wrapper {
+    max-width: none; /* 确保与父容器一致 */
+    margin: 0; /* 移除额外边距 */
+    padding: 0; /* 移除额外填充 */
 }
