@@ -141,36 +141,92 @@ am5.ready(function () {
     });
 
     // --- 点击事件 ---
-    let previousPolygon;
+    let previousPolygon; // Keep this variable
     polygonSeries.mapPolygons.template.events.on("click", function (ev) {
-        const target = ev.target;
-        const dataContext = target.dataItem.dataContext;
-        const countryName = dataContext.name; // 获取 amCharts 标准名称
+        const target = ev.target; // The clicked MapPolygon
+        const dataContext = target.dataItem.dataContext; // Data of the clicked country
+        const countryName = dataContext.name; // amCharts standard name
 
-        // **重要**：我们需要将 amCharts 名称转换回我们的数据名称或通用名称
-        // 以便 chart_controller 能正确处理。这里我们暂时传递 amCharts 名称，
-        // 但 chart_controller 可能需要增加映射逻辑。
-        // 或者，我们在这里进行反向查找（更复杂）。
-        // 暂时先用 amCharts 名称，并在 controller 中处理。
-        console.log("Map Clicked:", countryName);
-        window.setSelectedCountry(countryName); // 调用控制器
+        let isNowActive; // To determine the message for the toast
 
-        // 处理地图高亮和缩放
-        if (previousPolygon && previousPolygon != target) {
+        // Your existing logic for handling selection and zoom
+        if (previousPolygon && previousPolygon !== target) {
             previousPolygon.set("active", false);
         }
-        // 如果点击的是当前已选中的，则取消选中并回家
-        if (target.get("active")) {
-             target.set("active", false);
-             chart.goHome();
-             window.setSelectedCountry("All"); // 取消选中时重置筛选
-             previousPolygon = undefined;
-        } else {
+
+        if (target.get("active")) { // If it was active, this click deactivates it
+            target.set("active", false);
+            chart.goHome();
+            window.setSelectedCountry("All");
+            previousPolygon = undefined;
+            isNowActive = false;
+        } else { // If it was not active, this click activates it
             target.set("active", true);
             polygonSeries.zoomToDataItem(target.dataItem);
+            window.setSelectedCountry(countryName);
             previousPolygon = target;
+            isNowActive = true;
         }
+
+        // --- Dynamic Notification Logic (Appended to Body) ---
+
+        // Remove any existing toast from the document body immediately
+        let existingToast = document.body.querySelector('.click-toast-notification');
+        if (existingToast) {
+            existingToast.remove();
+        }
+        // Clear any pending timeouts for hiding/removing previous toasts
+        if (window.currentToastTimeout) clearTimeout(window.currentToastTimeout);
+        if (window.currentToastRemovalTimeout) clearTimeout(window.currentToastRemovalTimeout);
+
+        const toast = document.createElement('div');
+        toast.className = 'click-toast-notification';
+
+        let message = "";
+        if (isNowActive) {
+            message = `Stats for ${countryName} loaded below.`;
+        } else {
+            message = "Global statistics now showing.";
+        }
+        toast.textContent = message;
+
+        // Append to the document body
+        document.body.appendChild(toast);
+
+        // Position the toast using page coordinates from the original browser event
+        // ev.originalEvent is the native PointerEvent
+        if (ev.originalEvent) {
+            toast.style.left = `${ev.originalEvent.pageX}px`;
+            toast.style.top = `${ev.originalEvent.pageY}px`;
+        } else {
+            // Fallback if originalEvent is not available (should be rare for clicks)
+            // This part is a safety net; ev.point is relative to the target sprite, less ideal for body append
+            console.warn("originalEvent not available for toast positioning. Toast may be misplaced.");
+            // You might need a more complex fallback if this occurs often.
+            // For now, we'll try to position it at a default location or not show it.
+            toast.style.left = '50vw'; // Centered viewport
+            toast.style.top = '20vh';  // From top of viewport
+            toast.style.transform = 'translate(-50%, -50%)'; // Adjust transform for viewport centering
+        }
+
+
+        // Trigger fade-in and animation
+        requestAnimationFrame(() => {
+            toast.classList.add('show');
+        });
+
+        // Set timeout to fade out
+        window.currentToastTimeout = setTimeout(() => {
+            toast.classList.remove('show');
+            // Remove the element from DOM after fade-out transition
+            window.currentToastRemovalTimeout = setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 300); // Match CSS transition duration (0.3s)
+        }, 2500); // Display duration: toast visible for 2.5 seconds
     });
+
 
     // 点击背景（水域）取消选择并回家
     chart.chartContainer.get("background").events.on("click", function () {

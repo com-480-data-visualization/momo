@@ -1,168 +1,219 @@
 body {
-    background-color: #f5f5f5;
+    background-color: #f4f4f4; /* Consistent page background */
     font-family: Arial, sans-serif;
-    margin: 20px;
+    margin: 0; /* Reset default margin */
 }
 
-/* Navigation Bar Styling */
-nav {
-    background-color: #16d7ad;
-    color: rgb(216, 63, 63);
-    padding: 10px 20px;
+/* --- Optional Site Title Header --- */
+.site-title-header {
+    background-color: #fff;
+    padding: 15px 30px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.site-title-header h1 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 2em;
+}
+.site-title-header p {
+    margin: 5px 0 0;
+    color: #555;
+    font-size: 1em;
+}
+
+/* --- Top Navigation Bar Styling (from previous step) --- */
+header nav.top-nav {
+    background-color: #333;
+    color: white;
+    padding: 0;
     position: sticky;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
-nav ul {
+header nav.top-nav ul {
     list-style-type: none;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
 }
 
-nav ul li {
-    display: inline;
-}
-
-nav ul li a {
+header nav.top-nav ul li a.nav-link {
     color: white;
     text-decoration: none;
-    padding: 10px 15px;
+    padding: 16px 25px;
     display: block;
+    text-align: center;
+    font-size: 1em;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-nav ul li a:hover {
-    background-color: #575757;
-    border-radius: 5px;
+header nav.top-nav ul li a.nav-link:hover {
+    background-color: #555;
+    color: #fff;
 }
 
-/* Section Styling */
-section {
-    margin: 20px 0;
-    padding: 20px;
-    background-color: #fff;
+header nav.top-nav ul li a.nav-link.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+/* --- Page Section Control (from previous step) --- */
+.page-section {
+    padding: 10px 15px 20px;
+}
+
+/* --- Individual Content Section Styling (from previous step) --- */
+.content-section {
+    background-color: #ffffff;
+    padding: 20px 25px;
+    margin: 25px auto;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e0e0e0;
+    max-width: 95%;
 }
 
-section h1 {
-    color: #333;
-    font-size: 2em;
-    margin-bottom: 10px;
+.content-section > h1,
+.content-section > h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #eeeeee;
+    color: #2c3e50;
+    font-size: 1.6em;
+}
+.content-section > h2 {
+    font-size: 1.4em;
 }
 
-section p {
+.content-section p {
     color: #555;
     line-height: 1.6;
+    margin-bottom: 15px;
 }
 
-/* New styles for two-column layout */
+/* === Layout Change for World Map Section === */
 .main-content-area {
     display: flex;
-    justify-content: space-evenly; 
-    gap: 20px; 
+    flex-direction: column; /* Stack map-column and charts-column vertically */
+    align-items: center;    /* Center columns if they have max-width */
+    gap: 20px;
     width: 100%;
-    margin-top: 20px; 
-    align-items: center; /* Added vertical alignment */
+    margin-top: 20px;
 }
 
 .map-column {
-    width: 50%; /* Adjusted width */
-    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    display: flex; /* Keep flex if you have other direct children to manage */
+    flex-direction: column; /* Stack legend (if it were in flow) and map-div */
+    align-items: center;
+    position: relative; /* This is crucial for absolute positioning of the legend */
 }
 
 .charts-column {
-    width: 40%; /* Adjusted width */
-    display: flex; 
-    flex-direction: column; 
+    width: 100%;
+    max-width: 1000px; /* Max width for the statistics area */
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    margin-top: 30px; /* Space above this section */
 }
+/* ========================================== */
 
-.map-column h2, .charts-column h2 {
-    margin-top: 0; 
-}
-/* End of new two-column layout styles */
+/* Chart Container Heights */
+/* Specific height for the World Map */
 
-#chartdiv,
+/* Reduce height of individual stat charts slightly to fit better in 2x2 */
 #barchartdiv,
 #piechartdiv,
 #genderpiechartdiv,
 #awardAgeHistogramDiv {
     width: 100%;
-    height: 320px; /* New reduced height for all charts */
-    margin-bottom: 20px; /* New reduced margin for all charts */
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    background-color: transparent; /* Make chart containers transparent */
-    border: none; /* Optional: Remove border if not needed */
+    height: 280px; /* Adjusted height */
+    border: none; 
+    border-radius: 0; 
+    padding: 0; 
 }
 
-#chartdiv { /* Specific override for the World Map */
-    /* height: 450px; --- Removed as per new shared rule */
-    margin-bottom: 0; /* Kept as it might be needed for map column layout */
+
+/* Map Legend Styling */
+#custom-map-legend {
+    position: absolute; /* Take legend out of normal flow */
+    top: 20px;          /* Distance from the top of .map-column */
+    right: 20px;         /* Distance from the right of .map-column */
+    z-index: 1001;      /* Ensure it's above the map, but below modals/nav if needed */
+
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow for overlay */
+    font-family: sans-serif;
+    font-size: 12px;
+    width: fit-content; /* Keep it compact */
+    /* Remove margin-bottom if it was for static positioning */
 }
 
-.center-img {
-    width: 100%;
-    max-width: 600px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20px;
-}
-
-.chart-row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap; /* Allow wrapping */
-    justify-content: flex-start; /* Change to flex-start */
-    gap: 25px;
-    margin-top: 20px;
-}
-
-.chart-box {
-    width: calc(50% - 12.5px); /* Adjust width for two items per row, considering a 25px gap */
-}
-
-.chart-box h3 {
+#custom-map-legend h4 {
+    margin-top: 0;
+    margin-bottom: 8px;
     text-align: center;
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: 13px;
 }
 
-.filter-controls {
+.legend-item {
+    margin-bottom: 4px;
     display: flex;
-    gap: 10px;
     align-items: center;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
 }
 
-.filter-controls label {
-    font-weight: bold;
+.legend-item span {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    border: 1px solid #ccc;
 }
 
-.filter-controls select {
-    padding: 5px;
-    border-radius: 4px;
+/* Ensure the map itself takes up the space correctly */
+#chartdiv {
+    width: 100%;
+    height: 600px; /* Or your desired map height */
+    border-radius: 8px; /* Keep rounded corners if you like */
+    border: 1px solid #ddd; /* Optional: border for the map div itself */
+    /* Padding was 0, which is good for maps. Margin-bottom can be adjusted if needed. */
 }
 
+/* Controls Panel and Filters (Mostly from your existing styles, minor tweaks if needed) */
 .control-panel.compact {
     display: flex;
-    gap: 30px;
-    align-items: flex-start;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 20px; /* Reduced gap slightly */
+    align-items: center; /* Align items vertically */
     padding: 15px;
-    background: #f5f5f5;
+    background: #f9f9f9; /* Slightly off-white */
     border-radius: 8px;
     margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
 }
 
 .timeline-container {
-    width: 300px;
-    /* Fixed width for timeline */
+    flex: 1 1 300px; /* Allow timeline to grow but have a base size */
+    min-width: 250px;
+}
+
+.category-filter {
+    flex: 1 1 200px; /* Allow category filter to grow */
 }
 
 .slider-wrapper {
@@ -181,7 +232,6 @@ section p {
     text-align: right;
 }
 
-/* Dropdown Styles */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -193,10 +243,11 @@ section p {
     border: 1px solid #ddd;
     border-radius: 4px;
     cursor: pointer;
-    min-width: 150px;
+    min-width: 150px; /* Ensure it's wide enough for "All Categories" */
     text-align: left;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .dropdown-toggle:hover {
@@ -209,139 +260,92 @@ section p {
     background: white;
     border: 1px solid #ddd;
     border-radius: 4px;
-    min-width: 150px;
-    z-index: 100;
+    min-width: 100%; /* Make menu at least as wide as toggle */
+    z-index: 1001; /* Ensure above other elements like map legend */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    max-height: 300px;
+    max-height: 250px; /* Limit height and allow scroll */
     overflow-y: auto;
+}
+
+.dropdown-menu.show { /* Style for when dropdown is shown via JS */
+    display: block;
 }
 
 .dropdown-item {
     padding: 8px 15px;
     cursor: pointer;
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 .dropdown-item:hover {
     background: #f0f0f0;
 }
 
-.dropdown.show .dropdown-menu {
-    display: block;
-}
-
-/* Image Styling */
-img {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 5px;
-    background-color: #f9f9f9;
-}
-
-/* Footer Styling */
-footer {
-    background-color: #16d7ad;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    bottom: 0;
+/* Styling for the .charts-column content */
+.charts-column h2 {
     width: 100%;
-    font-size: 14px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.charts-column h3#current-country-display { /* Specific an existing element */
+    width: 100%;
+    text-align: center;
+    color: #555;
+    margin-bottom:15px; /* Space below "Selected: ..." */
 }
 
-#custom-map-legend {
-    position: relative; /* 或者 relative，取决于您想放哪里 */
-    bottom: 20px;       /* 示例：放在地图右下角 */
-    right: 20px;
-    background-color: rgba(255, 255, 255, 0.8); /* 半透明背景 */
+.chart-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between; /* This will help create the 2x2 effect */
+    gap: 20px; 
+    width: 100%; /* Takes full width of its parent .charts-column */
+}
+
+.chart-box {
+    width: calc(50% - 10px); /* (100% width - 20px gap) / 2 columns = 50% - 10px */
+    min-width: 280px;        /* Minimum width for smaller screens before they stack */
+    background-color: #fff;
     padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;      /* 确保在地图上层 */
-    font-family: sans-serif;
-    font-size: 12px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border: 1px solid #e9e9e9;
+    box-sizing: border-box; /* Ensures padding and border are included in width/height */
 }
 
-#custom-map-legend h4 {
+.chart-box h3 {
+    text-align: center;
+    font-size: 1em; /* Slightly smaller for chart titles */
     margin-top: 0;
     margin-bottom: 10px;
-    text-align: center;
-}
-
-.legend-item {
-    margin-bottom: 5px;
-    display: flex;
-    align-items: center;
-}
-
-.legend-item span {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    border: 1px solid #FFF; /* 可选：给色块加个边框 */
-}
-
-/* 类别筛选器容器 */
-.category-filter {
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-/* 下拉菜单的相对定位容器 */
-.category-filter .dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-/* 下拉按钮样式 (您可以根据需要调整) */
-.category-filter .dropdown-toggle {
-    background-color: #f0f0f0;
     color: #333;
-    padding: 8px 15px;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    justify-content: center; /* Center filter controls within chart-box */
+}
+
+.filter-controls label {
+    font-weight: normal; /* Less emphasis */
+    font-size: 0.9em;
+}
+
+.filter-controls select {
+    padding: 5px 8px;
+    border-radius: 4px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
+    font-size: 0.9em;
 }
 
-.category-filter .dropdown-toggle:hover {
-    background-color: #e0e0e0;
-}
-
-/* 下拉菜单本身 - 默认隐藏 */
-.category-filter .dropdown-menu {
-    display: none; /* <-- 关键：默认隐藏 */
-    position: absolute;
-    background-color: #ffffff;
-    min-width: 180px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1001; /* 确保在图例和地图之上 */
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    margin-top: 5px; /* 与按钮的距离 */
-}
-
-/* 当菜单有 'show' 类时，显示它 */
-.category-filter .dropdown-menu.show {
-    display: block; /* <-- 关键：点击后显示 */
-}
-
-/* 下拉菜单项样式 */
-.category-filter .dropdown-item {
-    color: black;
-    padding: 10px 15px;
-    text-decoration: none;
-    display: block;
-    cursor: pointer;
-    font-size: 13px;
-}
-
-/* 鼠标悬停在选项上 */
-.category-filter .dropdown-item:hover {
-    background-color: #f1f1f1;
-}
-
-/* Time Series Controls */
+/* Styles for Analysis Page Sections (nobel-trends, age-analysis, etc.) */
+/* These already use .content-section, so they inherit that styling. */
+/* Specific styles for controls within analysis sections */
 .timeseries-controls {
     background: #f9f9f9;
     padding: 15px;
@@ -357,91 +361,16 @@ footer {
 }
 
 .timeseries-filter,
-.cumulative-filter {
+.age-filter, /* Ensure .age-filter inherits/has similar styles */
+.interactive-gender-filter { /* Added for consistency */
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 10px; /* Consistent gap */
     align-items: center;
 }
 
 .timeseries-filter label,
-.cumulative-filter label {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 14px;
-    color: #555;
-    cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-}
-
-.timeseries-filter label:hover,
-.cumulative-filter label:hover {
-    background-color: #e8e8e8;
-}
-
-.timeseries-filter input[type="checkbox"],
-.cumulative-filter input[type="checkbox"] {
-    margin: 0;
-    cursor: pointer;
-}
-
-#timeserieschartdiv,
-#cumulativechartdiv,
-#countrychartdiv,
-#agechartdiv,
-#genderchartdiv,
-#gendertimechartdiv,
-#interactivegenderchartdiv {
-    background: white;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* Radio button filters */
-.country-filter,
-.age-filter {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    align-items: center;
-}
-
-.country-filter label,
-.age-filter label {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 14px;
-    color: #555;
-    cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-}
-
-.country-filter label:hover,
-.age-filter label:hover {
-    background-color: #e8e8e8;
-}
-
-.country-filter input[type="radio"],
-.age-filter input[type="radio"] {
-    margin: 0;
-    cursor: pointer;
-}
-
-/* Interactive gender filter */
-.interactive-gender-filter {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    align-items: center;
-}
-
+.age-filter label,
 .interactive-gender-filter label {
     display: flex;
     align-items: center;
@@ -452,22 +381,39 @@ footer {
     padding: 5px 10px;
     border-radius: 4px;
     transition: background-color 0.2s;
+    background-color: #fff; /* Add a slight background to labels */
+    border: 1px solid #ddd;
 }
 
+.timeseries-filter label:hover,
+.age-filter label:hover,
 .interactive-gender-filter label:hover {
     background-color: #e8e8e8;
 }
 
+.timeseries-filter input[type="checkbox"],
+.age-filter input[type="radio"],
 .interactive-gender-filter input[type="checkbox"] {
-    margin: 0;
+    margin-right: 5px; /* Space between control and text */
     cursor: pointer;
 }
 
-/* Modal Styles */
+/* Chart divs within analysis sections */
+#timeserieschartdiv,
+#agechartdiv,
+#flowchartdiv {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    /* width and height are set inline or by JS, but ensure container allows it */
+}
+
+/* Modal Styles (copied from your existing style.css, ensure they are complete) */
 .modal {
     display: none;
     position: fixed;
-    z-index: 1000;
+    z-index: 1000; /* Ensure modals are above sticky nav */
     left: 0;
     top: 0;
     width: 100%;
@@ -518,7 +464,7 @@ footer {
 }
 
 .close-modal,
-.close-age-modal,
+.close-age-modal, /* Ensure all your modal close buttons are styled */
 .close-gender-modal,
 .close-winner-detail-modal {
     color: #aaa;
@@ -539,168 +485,91 @@ footer {
     padding: 25px;
 }
 
-.country-summary,
-.age-summary,
-.gender-summary {
+/* ... (rest of your modal and other specific styles from style.css) ... */
+/* Ensure all relevant parts of your original style.css are included or adapted */
+
+.winner-detail-summary, .country-summary, .age-summary, .gender-summary {
     background: #f8f9fa;
     padding: 15px;
     border-radius: 6px;
     margin-bottom: 20px;
 }
+.detail-row { margin-bottom: 8px; font-size: 14px; }
+.detail-row strong { color: #333; margin-right: 8px; }
+.motivation-section { margin-top: 20px; }
+.motivation-section h3 { margin: 0 0 10px 0; color: #333; font-size: 18px; }
+.motivation-text { font-size: 14px; line-height: 1.5; color: #495057; background: #f8f9fa; padding: 15px; border-radius: 6px; border-left: 4px solid #2E86AB; }
 
-.category-breakdown {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
-}
+.category-breakdown { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.category-item { background: #e9ecef; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: #495057; }
+.winners-list h3 { margin: 0 0 15px 0; color: #333; }
+.winners-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
+.winner-card { background: white; border: 1px solid #e0e0e0; border-radius: 6px; padding: 15px; transition: box-shadow 0.2s; }
+.winner-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.winner-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.winner-header h4 { margin: 0; color: #2E86AB; font-size: 16px; line-height: 1.2; }
+.winner-year { background: #2E86AB; color: white; padding: 2px 6px; border-radius: 3px; font-size: 12px; font-weight: bold; }
+.winner-category, .winner-age { color: #6c757d; font-weight: bold; font-size: 14px; margin-bottom: 5px; }
+.winner-motivation { font-size: 13px; line-height: 1.4; color: #495057; margin-bottom: 8px; }
+.winner-org, .winner-country { font-size: 12px; color: #6c757d; font-style: italic; }
 
-.category-item {
-    background: #e9ecef;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    color: #495057;
-}
-
-.winners-list h3 {
-    margin: 0 0 15px 0;
-    color: #333;
-}
-
-.winners-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 15px;
-}
-
-.winner-card {
-    background: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-    padding: 15px;
-    transition: box-shadow 0.2s;
-}
-
-.winner-card:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.winner-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 8px;
-}
-
-.winner-header h4 {
-    margin: 0;
-    color: #2E86AB;
-    font-size: 16px;
-    line-height: 1.2;
-}
-
-.winner-year {
-    background: #2E86AB;
-    color: white;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.winner-category {
-    color: #6c757d;
-    font-weight: bold;
-    font-size: 14px;
-    margin-bottom: 5px;
-}
-
-.winner-age {
-    color: #6c757d;
-    font-weight: bold;
-    font-size: 14px;
-    margin-bottom: 5px;
-}
-
-.winner-motivation {
-    font-size: 13px;
-    line-height: 1.4;
-    color: #495057;
-    margin-bottom: 8px;
-}
-
-.winner-org {
-    font-size: 12px;
-    color: #6c757d;
-    font-style: italic;
-}
-
-.winner-country {
-    font-size: 12px;
-    color: #6c757d;
-    font-style: italic;
-}
-
-/* Winner detail modal styles */
-.winner-detail-summary {
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 6px;
-    margin-bottom: 20px;
-}
-
-.detail-row {
-    margin-bottom: 8px;
-    font-size: 14px;
-}
-
-.detail-row strong {
-    color: #333;
-    margin-right: 8px;
-}
-
-.motivation-section {
-    margin-top: 20px;
-}
-
-.motivation-section h3 {
-    margin: 0 0 10px 0;
-    color: #333;
-    font-size: 18px;
-}
-
-.motivation-text {
-    font-size: 14px;
-    line-height: 1.5;
-    color: #495057;
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 6px;
-    border-left: 4px solid #2E86AB;
-}
 
 /* Responsive design for modals */
 @media (max-width: 768px) {
-    .modal-content {
-        width: 95%;
-        margin: 2% auto;
-        max-height: 95vh;
+    .modal-content { width: 95%; margin: 2% auto; max-height: 95vh; }
+    .winners-grid { grid-template-columns: 1fr; }
+    .modal-header { padding: 15px 20px; }
+    .modal-header h2 { font-size: 20px; }
+    .modal-body { padding: 20px; }
+
+    .map-column, .charts-column {
+        width: 100%; /* Ensure full width on smaller screens */
     }
-    
-    .winners-grid {
-        grid-template-columns: 1fr;
+    .chart-box {
+        width: 100%; /* Stack chart boxes on smaller screens */
     }
-    
-    .modal-header {
-        padding: 15px 20px;
+    .control-panel.compact {
+        flex-direction: column; /* Stack controls on smaller screens */
+        align-items: stretch;
     }
-    
-    .modal-header h2 {
-        font-size: 20px;
+    .timeline-container, .category-filter {
+        width: 100%; /* Full width for controls on mobile */
+        flex: 1 1 auto;
     }
-    
-    .modal-body {
-        padding: 20px;
-    }
+}
+
+/* --- Dynamic Click Notification (Toast) --- */
+.click-toast-notification {
+    position: absolute; /* Positioned dynamically by JavaScript relative to the document */
+    transform: translate(-50%, -120%); /* Start above the click point, centered horizontally */
+    background-color: rgba(40, 40, 40, 0.85);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px; /* Pill shape */
+    font-size: 0.9em;
+    font-weight: 500;
+    z-index: 20000;       /* Very high z-index to be on top of everything */
+    opacity: 0;
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    pointer-events: none; /* Prevents interfering with other map interactions */
+    white-space: nowrap;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.click-toast-notification.show {
+    opacity: 1;
+    transform: translate(-50%, -150%); /* Move up slightly more when fully visible */
+}
+
+/* Footer Styling */
+footer { /* Copied from your existing styles */
+    background-color: #16d7ad;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    /* position: fixed; /* Consider if you want a fixed footer */
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+    margin-top: 30px; /* Space above footer */
 }
