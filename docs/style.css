@@ -760,6 +760,16 @@ h3#current-country-display {
     transform: translate(-50%, -170%); /* More pop */
 }
 
+.content-section.before-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.content-section.animate-in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* Footer Styling */
 footer {
     background-color: var(--dark-text);
