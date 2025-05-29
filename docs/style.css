@@ -1,38 +1,77 @@
-body {
-    background-color: #f4f4f4; /* Consistent page background */
-    font-family: Arial, sans-serif;
-    margin: 0; /* Reset default margin */
+/* Import a modern font - Example: Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #3498db; /* A fresh, modern blue */
+    --primary-hover-color: #2980b9;
+    --secondary-color: #95a5a6; /* Cool grey */
+    --accent-color: #e74c3c; /* A contrasting accent */
+    --light-bg: #ecf0f1;   /* Very light grey, almost white */
+    --card-bg: #ffffff;
+    --dark-text: #2c3e50;  /* Dark blue-grey for text */
+    --medium-text: #5D6D7E;
+    --light-text-on-dark: #f8f9fa;
+    --border-color: #bdc3c7;
+    --border-light-color: #dde1e2;
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+
+    --font-body: 'Poppins', sans-serif;
+    --font-heading: 'Poppins', sans-serif; /* Using Poppins for both for cohesion, but varying weights */
+
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 3px 6px rgba(0,0,0,0.06);
+    --shadow-md: 0 6px 12px rgba(0,0,0,0.09);
+    --shadow-lg: 0 10px 20px rgba(0,0,0,0.12), 0 3px 8px rgba(0,0,0,0.08);
+
+    --transition-fast: 0.2s ease-out;
+    --transition-medium: 0.3s ease-out;
 }
 
-/* --- Optional Site Title Header --- */
+body {
+    background-color: var(--light-bg);
+    font-family: var(--font-body);
+    margin: 0;
+    color: var(--medium-text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Site Title Header --- */
 .site-title-header {
-    background-color: #fff;
-    padding: 15px 30px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #5dade2 100%); /* Gradient background */
+    color: white;
+    padding: 40px 30px;
     text-align: center;
-    border-bottom: 1px solid #ddd;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border-bottom: none; /* Removed border, gradient provides separation */
+    box-shadow: var(--shadow-md);
 }
 
 .site-title-header h1 {
-    margin: 0;
-    color: #2c3e50;
-    font-size: 2em;
+    margin: 0 0 10px 0;
+    font-family: var(--font-heading);
+    font-size: 3.2em; /* Larger */
+    font-weight: 700;
+    letter-spacing: -1px; /* Slightly tighter */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 .site-title-header p {
-    margin: 5px 0 0;
-    color: #555;
-    font-size: 1em;
+    margin: 0;
+    font-size: 1.25em;
+    font-weight: 300;
+    opacity: 0.9;
 }
 
-/* --- Top Navigation Bar Styling (from previous step) --- */
+/* --- Top Navigation Bar --- */
 header nav.top-nav {
-    background-color: #333;
-    color: white;
+    background-color: var(--dark-text);
     padding: 0;
     position: sticky;
     top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    z-index: 1050;
+    box-shadow: var(--shadow-md);
 }
 
 header nav.top-nav ul {
@@ -44,532 +83,772 @@ header nav.top-nav ul {
 }
 
 header nav.top-nav ul li a.nav-link {
-    color: white;
+    color: #bdc3c7; /* Lighter grey for inactive links */
     text-decoration: none;
-    padding: 16px 25px;
+    padding: 18px 30px;
     display: block;
     text-align: center;
+    font-family: var(--font-heading);
     font-size: 1em;
     font-weight: 500;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    letter-spacing: 0.5px;
+    transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    position: relative;
+}
+header nav.top-nav ul li a.nav-link::after { /* Underline effect */
+    content: '';
+    position: absolute;
+    bottom: 10px; /* Position of underline */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width var(--transition-medium);
 }
 
 header nav.top-nav ul li a.nav-link:hover {
-    background-color: #555;
-    color: #fff;
+    color: #ffffff;
+    /* background-color: rgba(255,255,255,0.05); */ /* Subtle hover */
+}
+header nav.top-nav ul li a.nav-link:hover::after {
+    width: 60%; /* Expand underline on hover */
 }
 
 header nav.top-nav ul li a.nav-link.active {
-    background-color: #007bff;
     color: white;
-    font-weight: bold;
+    font-weight: 600;
+}
+header nav.top-nav ul li a.nav-link.active::after {
+    width: 60%; /* Underline for active item */
 }
 
-/* --- Page Section Control (from previous step) --- */
+
+/* --- Page Section General --- */
 .page-section {
-    padding: 10px 15px 20px;
+    padding: 30px 20px;
 }
 
-/* --- Individual Content Section Styling (from previous step) --- */
+/* --- Individual Content Section Styling --- */
 .content-section {
-    background-color: #ffffff;
-    padding: 20px 25px;
-    margin: 25px auto;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e0e0e0;
+    background-color: var(--card-bg);
+    padding: 35px 40px;
+    margin: 40px auto;
+    border-radius: var(--border-radius-lg); /* Larger radius */
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-light-color);
     max-width: 95%;
+    transition: transform var(--transition-medium), box-shadow var(--transition-medium);
 }
+/* Consider adding a slight lift on hover for content sections if desired */
+/* .content-section:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+} */
 
 .content-section > h1,
 .content-section > h2 {
     margin-top: 0;
-    margin-bottom: 20px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid #eeeeee;
-    color: #2c3e50;
-    font-size: 1.6em;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-light-color);
+    color: var(--dark-text);
+    font-family: var(--font-heading);
+    font-size: 2.2em;
+    font-weight: 600;
+    letter-spacing: -0.5px;
 }
 .content-section > h2 {
-    font-size: 1.4em;
+    font-size: 1.8em;
 }
 
 .content-section p {
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 15px;
+    color: var(--medium-text);
+    line-height: 1.8;
+    margin-bottom: 22px;
+    font-size: 1.05em; /* Slightly larger body text */
 }
 
-/* === Layout Change for World Map Section === */
+/* === Layout for World Map Section === */
 .main-content-area {
     display: flex;
-    flex-direction: column; /* Stack map-column and charts-column vertically */
-    align-items: center;    /* Center columns if they have max-width */
-    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 35px;
 }
 
 .map-column {
     width: 100%;
-    max-width: 1200px;
-    display: flex; /* Keep flex if you have other direct children to manage */
-    flex-direction: column; /* Stack legend (if it were in flow) and map-div */
+    max-width: 1250px; /* Slightly wider map potential */
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    position: relative; /* This is crucial for absolute positioning of the legend */
+    position: relative;
 }
 
 .charts-column {
     width: 100%;
-    max-width: 1000px; /* Max width for the statistics area */
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 1150px;
+    margin: 40px auto 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 30px; /* Space above this section */
 }
-/* ========================================== */
 
-/* Chart Container Heights */
-/* Specific height for the World Map */
+/* Chart Container Heights & Styles */
+#chartdiv { /* World Map */
+    width: 100%;
+    height: 650px; /* Slightly taller map */
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-light-color);
+    background-color: #f4f9ff; /* Even lighter blue */
+    box-shadow: var(--shadow-sm);
+}
 
-/* Reduce height of individual stat charts slightly to fit better in 2x2 */
 #barchartdiv,
 #piechartdiv,
 #genderpiechartdiv,
 #awardAgeHistogramDiv {
     width: 100%;
-    height: 280px; /* Adjusted height */
-    border: none; 
-    border-radius: 0; 
-    padding: 0; 
+    height: 330px;
+    border: none;
+    padding: 10px 0 0 0; /* Add some top padding within the chart box */
+    box-sizing: border-box;
 }
-
 
 /* Map Legend Styling */
 #custom-map-legend {
-    position: absolute; /* Take legend out of normal flow */
-    top: 20px;          /* Distance from the top of .map-column */
-    right: 20px;         /* Distance from the right of .map-column */
-    z-index: 1001;      /* Ensure it's above the map, but below modals/nav if needed */
-
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 10px 15px;
-    border-radius: 5px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow for overlay */
-    font-family: sans-serif;
-    font-size: 12px;
-    width: fit-content; /* Keep it compact */
-    /* Remove margin-bottom if it was for static positioning */
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    z-index: 1001;
+    background-color: rgba(255, 255, 255, 0.98); /* Almost opaque */
+    padding: 18px 22px;
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+    font-family: var(--font-body);
+    font-size: 13px;
 }
 
 #custom-map-legend h4 {
     margin-top: 0;
-    margin-bottom: 8px;
-    text-align: center;
-    font-size: 13px;
+    margin-bottom: 15px;
+    text-align: left;
+    font-size: 15px;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--dark-text);
 }
 
 .legend-item {
-    margin-bottom: 4px;
+    margin-bottom: 7px;
     display: flex;
     align-items: center;
 }
+.legend-item:last-child { margin-bottom: 0; }
 
 .legend-item span {
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    margin-right: 8px;
-    border: 1px solid #ccc;
+    width: 22px;
+    height: 22px;
+    margin-right: 12px;
+    border: 1px solid #b0bec5; /* Softer border for swatches */
+    border-radius: var(--border-radius-sm);
 }
 
-/* Ensure the map itself takes up the space correctly */
-#chartdiv {
-    width: 100%;
-    height: 600px; /* Or your desired map height */
-    border-radius: 8px; /* Keep rounded corners if you like */
-    border: 1px solid #ddd; /* Optional: border for the map div itself */
-    /* Padding was 0, which is good for maps. Margin-bottom can be adjusted if needed. */
-}
-
-/* Controls Panel and Filters (Mostly from your existing styles, minor tweaks if needed) */
+/* Controls Panel and Filters */
 .control-panel.compact {
     display: flex;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-    gap: 20px; /* Reduced gap slightly */
-    align-items: center; /* Align items vertically */
-    padding: 15px;
-    background: #f9f9f9; /* Slightly off-white */
-    border-radius: 8px;
-    margin-bottom: 20px;
-    border: 1px solid #e0e0e0;
+    flex-wrap: wrap;
+    gap: 25px 35px; /* row and column gap */
+    align-items: flex-end;
+    padding: 30px;
+    background: var(--card-bg);
+    border-radius: var(--border-radius-lg);
+    margin-bottom: 35px;
+    border: 1px solid var(--border-light-color);
+    box-shadow: var(--shadow-md);
 }
 
-.timeline-container {
-    flex: 1 1 300px; /* Allow timeline to grow but have a base size */
-    min-width: 250px;
+.control-panel.compact h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    font-family: var(--font-heading);
+    color: var(--dark-text);
+    font-weight: 600;
 }
 
-.category-filter {
-    flex: 1 1 200px; /* Allow category filter to grow */
+.timeline-container, .category-filter {
+    flex: 1 1 250px; /* Base width */
 }
 
 .slider-wrapper {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 18px;
 }
 
-.slider {
+.slider { /* Re-styling for a more custom look */
     width: 100%;
+    height: 10px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #e0e0e0; /* Track color */
+    border-radius: 5px;
+    outline: none;
+    transition: opacity .2s;
 }
+.slider:hover { opacity: 1; }
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    border: 3px solid white; /* White border around thumb */
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+.slider::-webkit-slider-thumb:hover {
+    background-color: var(--primary-hover-color);
+    transform: scale(1.1);
+}
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+.slider::-moz-range-thumb:hover {
+    background-color: var(--primary-hover-color);
+    transform: scale(1.1);
+}
+
 
 #current-year {
-    font-weight: bold;
-    min-width: 40px;
-    text-align: right;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    min-width: 50px;
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 1.25em;
+    background-color: #e9f5ff; /* Light blue background for year */
+    padding: 5px 8px;
+    border-radius: var(--border-radius-sm);
 }
 
 .dropdown {
     position: relative;
     display: inline-block;
+    width: 100%;
 }
 
 .dropdown-toggle {
-    padding: 8px 15px;
+    padding: 12px 18px;
     background: white;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
     cursor: pointer;
-    min-width: 150px; /* Ensure it's wide enough for "All Categories" */
+    width: 100%;
     text-align: left;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 1em;
+    color: var(--medium-text);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
-
+.dropdown-toggle:after {
+    content: '▼';
+    font-size: 0.8em;
+    margin-left: 10px;
+    color: var(--secondary-color);
+    transition: transform var(--transition-fast);
+}
+.dropdown.show .dropdown-toggle:after { /* Rotate arrow when open */
+    transform: rotate(180deg);
+}
 .dropdown-toggle:hover {
-    background: #f0f0f0;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.15rem rgba(52, 152, 219, .25);
 }
 
 .dropdown-menu {
     display: none;
     position: absolute;
     background: white;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    min-width: 100%; /* Make menu at least as wide as toggle */
-    z-index: 1001; /* Ensure above other elements like map legend */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    max-height: 250px; /* Limit height and allow scroll */
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    min-width: 100%;
+    z-index: 1051;
+    box-shadow: var(--shadow-md);
+    max-height: 260px;
     overflow-y: auto;
+    margin-top: 5px;
+    animation: fadeInDropdown 0.2s ease-out; /* Dropdown animation */
+}
+@keyframes fadeInDropdown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.dropdown-menu.show { /* Style for when dropdown is shown via JS */
+.dropdown-menu.show {
     display: block;
 }
 
 .dropdown-item {
-    padding: 8px 15px;
+    padding: 12px 18px;
     cursor: pointer;
-    white-space: nowrap; /* Prevent text wrapping */
+    white-space: nowrap;
+    font-size: 0.95em;
+    color: var(--medium-text);
+    transition: background-color var(--transition-fast), color var(--transition-fast);
 }
-
 .dropdown-item:hover {
-    background: #f0f0f0;
+    background: var(--primary-color);
+    color: white;
 }
 
 /* Styling for the .charts-column content */
-.charts-column h2 {
+.charts-column > h2 {
     width: 100%;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
+    font-size: 2em;
+    font-family: var(--font-heading);
+    color: var(--dark-text);
+    font-weight: 600;
 }
-.charts-column h3#current-country-display { /* Specific an existing element */
+h3#current-country-display {
     width: 100%;
     text-align: center;
-    color: #555;
-    margin-bottom:15px; /* Space below "Selected: ..." */
+    color: var(--medium-text);
+    margin-bottom: 30px;
+    font-size: 1.3em;
+    font-family: var(--font-heading);
+    font-weight: 400;
 }
 
 .chart-row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between; /* This will help create the 2x2 effect */
-    gap: 20px; 
-    width: 100%; /* Takes full width of its parent .charts-column */
+    display: grid;
+    gap: 30px; /* Adjust gap as needed, matches previous */
+    width: 100%;
+    grid-template-columns: 1fr; /* Default to one column for small screens */
+}
+
+@media (min-width: 768px) { /* Breakpoint for 2 columns */
+    .chart-row {
+        grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+    }
 }
 
 .chart-box {
-    width: calc(50% - 10px); /* (100% width - 20px gap) / 2 columns = 50% - 10px */
-    min-width: 280px;        /* Minimum width for smaller screens before they stack */
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    border: 1px solid #e9e9e9;
-    box-sizing: border-box; /* Ensures padding and border are included in width/height */
+    /* flex-basis removed as grid handles sizing */
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-light-color);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow var(--transition-medium), transform var(--transition-medium);
+}
+.chart-box:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-6px) scale(1.01); /* More pronounced hover */
 }
 
 .chart-box h3 {
     text-align: center;
-    font-size: 1em; /* Slightly smaller for chart titles */
+    font-size: 1.3em;
+    font-family: var(--font-heading);
     margin-top: 0;
-    margin-bottom: 10px;
-    color: #333;
+    margin-bottom: 20px;
+    color: var(--dark-text);
+    font-weight: 600;
 }
 
 .filter-controls {
     display: flex;
-    gap: 10px;
+    gap: 15px;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     flex-wrap: wrap;
-    justify-content: center; /* Center filter controls within chart-box */
+    justify-content: center;
 }
 
 .filter-controls label {
-    font-weight: normal; /* Less emphasis */
-    font-size: 0.9em;
+    font-weight: 500; /* Slightly bolder */
+    font-size: 0.95em;
+    color: var(--dark-text);
 }
 
 .filter-controls select {
-    padding: 5px 8px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    font-size: 0.9em;
+    padding: 10px 14px;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+    font-size: 0.95em;
+    background-color: #fff;
+    color: var(--medium-text);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    min-width: 150px; /* Ensure decent width */
+}
+.filter-controls select:hover {
+    border-color: var(--primary-color);
+}
+.filter-controls select:focus {
+    border-color: var(--primary-color);
+    outline: 0;
+    box-shadow: 0 0 0 0.15rem rgba(52, 152, 219, .25);
 }
 
-/* Styles for Analysis Page Sections (nobel-trends, age-analysis, etc.) */
-/* These already use .content-section, so they inherit that styling. */
-/* Specific styles for controls within analysis sections */
-.timeseries-controls {
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
-    margin: 20px 0;
-    border: 1px solid #e0e0e0;
+
+/* Analysis Page Sections */
+.timeseries-controls, .age-filter-container, .interactive-gender-filter-container {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--border-radius-lg);
+    margin: 35px 0;
+    border: 1px solid var(--border-light-color);
+    box-shadow: var(--shadow-md);
 }
 
-.timeseries-controls h3 {
-    margin: 0 0 10px 0;
-    font-size: 16px;
-    color: #333;
+.timeseries-controls h3, .age-filter-container h3, .interactive-gender-filter-container h3 {
+    margin: 0 0 20px 0;
+    font-size: 1.4em;
+    font-family: var(--font-heading);
+    color: var(--dark-text);
+    font-weight: 600;
 }
 
 .timeseries-filter,
-.age-filter, /* Ensure .age-filter inherits/has similar styles */
-.interactive-gender-filter { /* Added for consistency */
+.age-filter,
+.interactive-gender-filter {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px; /* Consistent gap */
+    gap: 12px 18px;
     align-items: center;
 }
 
 .timeseries-filter label,
 .age-filter label,
 .interactive-gender-filter label {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 5px;
-    font-size: 14px;
-    color: #555;
+    gap: 8px;
+    font-size: 1em;
+    color: var(--medium-text);
     cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-    background-color: #fff; /* Add a slight background to labels */
-    border: 1px solid #ddd;
+    padding: 10px 18px;
+    border-radius: 25px; /* Pill shape */
+    transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+    background-color: var(--light-bg);
+    border: 1px solid var(--border-light-color);
 }
-
 .timeseries-filter label:hover,
 .age-filter label:hover,
 .interactive-gender-filter label:hover {
-    background-color: #e8e8e8;
+    background-color: #dfe6e9;
+    border-color: var(--secondary-color);
+    box-shadow: var(--shadow-xs);
 }
-
+.timeseries-filter input[type="checkbox"]:checked ~ span, /* Target sibling span for text style */
+.age-filter input[type="radio"]:checked ~ span,
+.interactive-gender-filter input[type="checkbox"]:checked ~ span {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+/* Style the label when its checkbox/radio is checked */
+.timeseries-filter input[type="checkbox"]:checked + label,
+.age-filter input[type="radio"]:checked + label,
+.interactive-gender-filter input[type="checkbox"]:checked + label {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-sm);
+}
 .timeseries-filter input[type="checkbox"],
 .age-filter input[type="radio"],
 .interactive-gender-filter input[type="checkbox"] {
-    margin-right: 5px; /* Space between control and text */
-    cursor: pointer;
+    /* Hiding the default control to rely on label styling. Remove if default is preferred. */
+    opacity: 0; width: 0; height: 0; position: absolute;
 }
 
-/* Chart divs within analysis sections */
+
 #timeserieschartdiv,
 #agechartdiv,
 #flowchartdiv {
     background: white;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    /* width and height are set inline or by JS, but ensure container allows it */
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-light-color);
+    box-shadow: var(--shadow-md);
+    padding: 15px; /* Padding around charts */
 }
 
-/* Modal Styles (copied from your existing style.css, ensure they are complete) */
+.flow-headers {
+    font-size: 1.2em;
+    font-family: var(--font-heading);
+    color: var(--dark-text);
+    padding: 0 30px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+/* Modal Styles - Refined */
 .modal {
     display: none;
     position: fixed;
-    z-index: 1000; /* Ensure modals are above sticky nav */
+    z-index: 1060; /* Highest z-index */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.5);
-    animation: fadeIn 0.3s;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    overflow: hidden; /* Prevent body scroll when modal is open */
+    background-color: rgba(44, 62, 80, 0.8); /* Darker, slightly bluer overlay */
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    animation: fadeIn var(--transition-medium);
 }
 
 .modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
+    background-color: var(--card-bg);
+    margin: 3% auto; /* Smaller top margin */
     padding: 0;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--border-radius-lg);
     width: 90%;
-    max-width: 1000px;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    animation: slideIn 0.3s;
+    max-width: 800px;
+    max-height: 90vh;
+    box-shadow: var(--shadow-lg);
+    animation: slideInModal 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); /* Smoother ease */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Content scrolling handled by modal-body */
 }
 
-@keyframes slideIn {
-    from { transform: translateY(-50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+@keyframes slideInModal {
+    from { transform: translateY(-50px) scale(0.95); opacity: 0; }
+    to { transform: translateY(0) scale(1); opacity: 1; }
 }
 
 .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 25px;
-    background: #f8f9fa;
-    border-bottom: 1px solid #e0e0e0;
-    border-radius: 8px 8px 0 0;
+    padding: 20px 30px;
+    background: var(--primary-color); /* Primary color header */
+    color: white;
+    border-bottom: 1px solid var(--primary-hover-color);
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
 }
 
 .modal-header h2 {
     margin: 0;
-    color: #333;
-    font-size: 24px;
+    font-family: var(--font-heading);
+    font-size: 1.7em;
+    font-weight: 600;
 }
 
 .close-modal,
-.close-age-modal, /* Ensure all your modal close buttons are styled */
-.close-gender-modal,
+.close-age-detail-modal,
 .close-winner-detail-modal {
-    color: #aaa;
-    font-size: 28px;
-    font-weight: bold;
+    color: rgba(255,255,255,0.8);
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 1;
     cursor: pointer;
-    transition: color 0.2s;
+    transition: color var(--transition-fast), transform var(--transition-fast);
+    padding: 0 5px;
 }
-
 .close-modal:hover,
-.close-age-modal:hover,
-.close-gender-modal:hover,
+.close-age-detail-modal:hover,
 .close-winner-detail-modal:hover {
-    color: #333;
+    color: white;
+    transform: rotate(90deg) scale(1.15);
 }
 
 .modal-body {
-    padding: 25px;
+    padding: 30px;
+    overflow-y: auto;
+    flex-grow: 1;
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary-color) var(--light-bg);
+}
+.modal-body::-webkit-scrollbar { width: 10px; }
+.modal-body::-webkit-scrollbar-track { background: var(--light-bg); border-radius: 10px; }
+.modal-body::-webkit-scrollbar-thumb { background-color: var(--secondary-color); border-radius: 10px; border: 2px solid var(--light-bg); }
+.modal-body::-webkit-scrollbar-thumb:hover { background-color: #788c9e; }
+
+
+.winner-detail-summary, .country-summary {
+    background: var(--light-bg);
+    padding: 22px;
+    border-radius: var(--border-radius-md);
+    margin-bottom: 30px;
+    border: 1px solid var(--border-light-color);
+}
+.detail-row { margin-bottom: 12px; font-size: 1em; line-height: 1.65; }
+.detail-row strong { color: var(--dark-text); margin-right: 10px; font-weight: 600; }
+
+.motivation-section { margin-top: 30px; }
+.motivation-section h3 { margin: 0 0 15px 0; color: var(--dark-text); font-family: var(--font-heading); font-size: 1.35em; font-weight: 600; }
+.motivation-text {
+    font-size: 1em;
+    line-height: 1.75;
+    color: var(--medium-text);
+    background: #fdfdff;
+    padding: 20px;
+    border-radius: var(--border-radius-md);
+    border-left: 5px solid var(--accent-color); /* Accent color for motivation */
+    box-shadow: var(--shadow-xs);
 }
 
-/* ... (rest of your modal and other specific styles from style.css) ... */
-/* Ensure all relevant parts of your original style.css are included or adapted */
+.category-breakdown { display: flex; flex-wrap: wrap; gap: 10px 14px; margin-top: 18px; }
+.category-item { background: #dfe4ea; color: var(--dark-text); padding: 7px 14px; border-radius: 20px; font-size: 0.9em; font-weight:500; }
 
-.winner-detail-summary, .country-summary, .age-summary, .gender-summary {
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 6px;
-    margin-bottom: 20px;
+.winners-list h3 { margin: 0 0 22px 0; color: var(--dark-text); font-family: var(--font-heading); font-size: 1.5em; font-weight: 600; }
+.winners-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+.winner-card {
+    background: white;
+    border: 1px solid var(--border-light-color);
+    border-radius: var(--border-radius-md);
+    padding: 22px;
+    transition: box-shadow var(--transition-medium), transform var(--transition-medium);
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-sm);
 }
-.detail-row { margin-bottom: 8px; font-size: 14px; }
-.detail-row strong { color: #333; margin-right: 8px; }
-.motivation-section { margin-top: 20px; }
-.motivation-section h3 { margin: 0 0 10px 0; color: #333; font-size: 18px; }
-.motivation-text { font-size: 14px; line-height: 1.5; color: #495057; background: #f8f9fa; padding: 15px; border-radius: 6px; border-left: 4px solid #2E86AB; }
+.winner-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-6px); }
 
-.category-breakdown { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
-.category-item { background: #e9ecef; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: #495057; }
-.winners-list h3 { margin: 0 0 15px 0; color: #333; }
-.winners-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
-.winner-card { background: white; border: 1px solid #e0e0e0; border-radius: 6px; padding: 15px; transition: box-shadow 0.2s; }
-.winner-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-.winner-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-.winner-header h4 { margin: 0; color: #2E86AB; font-size: 16px; line-height: 1.2; }
-.winner-year { background: #2E86AB; color: white; padding: 2px 6px; border-radius: 3px; font-size: 12px; font-weight: bold; }
-.winner-category, .winner-age { color: #6c757d; font-weight: bold; font-size: 14px; margin-bottom: 5px; }
-.winner-motivation { font-size: 13px; line-height: 1.4; color: #495057; margin-bottom: 8px; }
-.winner-org, .winner-country { font-size: 12px; color: #6c757d; font-style: italic; }
+.winner-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+.winner-header h4 { margin: 0; color: var(--primary-color); font-family: var(--font-heading); font-size: 1.2em; line-height: 1.4; font-weight: 600; }
+.winner-year { background: var(--primary-color); color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.85em; font-weight: 600; white-space: nowrap; }
+.winner-category { color: var(--secondary-color); font-weight: 600; font-size: 1em; margin-bottom: 10px; text-transform: capitalize; }
+.winner-motivation { font-size: 0.95em; line-height: 1.65; color: var(--medium-text); margin-bottom: 15px; flex-grow: 1; }
+.winner-org, .winner-country { font-size: 0.9em; color: var(--secondary-color); font-style: italic; margin-top: auto; }
 
-
-/* Responsive design for modals */
-@media (max-width: 768px) {
-    .modal-content { width: 95%; margin: 2% auto; max-height: 95vh; }
-    .winners-grid { grid-template-columns: 1fr; }
-    .modal-header { padding: 15px 20px; }
-    .modal-header h2 { font-size: 20px; }
-    .modal-body { padding: 20px; }
-
-    .map-column, .charts-column {
-        width: 100%; /* Ensure full width on smaller screens */
-    }
-    .chart-box {
-        width: 100%; /* Stack chart boxes on smaller screens */
-    }
-    .control-panel.compact {
-        flex-direction: column; /* Stack controls on smaller screens */
-        align-items: stretch;
-    }
-    .timeline-container, .category-filter {
-        width: 100%; /* Full width for controls on mobile */
-        flex: 1 1 auto;
-    }
-}
 
 /* --- Dynamic Click Notification (Toast) --- */
-.click-toast-notification {
-    position: absolute; /* Positioned dynamically by JavaScript relative to the document */
-    transform: translate(-50%, -120%); /* Start above the click point, centered horizontally */
-    background-color: rgba(40, 40, 40, 0.85);
+.click-toast-notification { /* Already good, keeping it */
+    position: absolute;
+    transform: translate(-50%, -120%);
+    background-color: rgba(33, 37, 41, 0.95); /* Darker for better contrast */
     color: white;
-    padding: 8px 15px;
-    border-radius: 20px; /* Pill shape */
-    font-size: 0.9em;
+    padding: 12px 22px;
+    border-radius: var(--border-radius-md);
+    font-size: 1em; /* Slightly larger */
     font-weight: 500;
-    z-index: 20000;       /* Very high z-index to be on top of everything */
+    z-index: 20000;
     opacity: 0;
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-    pointer-events: none; /* Prevents interfering with other map interactions */
+    transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+    pointer-events: none;
     white-space: nowrap;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3); /* Stronger shadow */
 }
-
 .click-toast-notification.show {
     opacity: 1;
-    transform: translate(-50%, -150%); /* Move up slightly more when fully visible */
+    transform: translate(-50%, -170%); /* More pop */
 }
 
 /* Footer Styling */
-footer { /* Copied from your existing styles */
-    background-color: #16d7ad;
-    color: white;
+footer {
+    background-color: var(--dark-text);
+    color: #bdc3c7; /* Lighter grey for footer text */
     text-align: center;
-    padding: 10px 0;
-    /* position: fixed; /* Consider if you want a fixed footer */
-    bottom: 0;
+    padding: 25px 0;
     width: 100%;
-    font-size: 14px;
-    margin-top: 30px; /* Space above footer */
+    font-size: 0.9em;
+    margin-top: 60px;
+    border-top: 1px solid #4a545e; /* Slightly lighter border for footer top */
+}
+
+
+/* Responsive design adjustments */
+@media (max-width: 1200px) {
+    .map-column { max-width: 100%; }
+    .charts-column { max-width: 100%; }
+}
+
+@media (max-width: 992px) {
+    .site-title-header h1 { font-size: 2.5em; }
+    .site-title-header p { font-size: 1.1em; }
+    .content-section > h1 { font-size: 1.9em; }
+    .content-section > h2 { font-size: 1.65em; }
+    .chart-row { grid-template-columns: 1fr; } /* Stack chart boxes earlier */
+}
+
+@media (max-width: 768px) {
+    body { font-size: 15px; }
+    .site-title-header { padding: 30px 20px; }
+    .site-title-header h1 { font-size: 2em; }
+    .site-title-header p { font-size: 1em; }
+
+    header nav.top-nav ul { flex-direction: column; }
+    header nav.top-nav ul li a.nav-link { text-align: left; padding: 15px 25px; }
+    header nav.top-nav ul li a.nav-link::after { bottom: 8px; left: 25px; transform: translateX(0); } /* Adjust underline for stacked nav */
+
+
+    .content-section { padding: 25px 20px; margin: 30px auto; }
+    .content-section > h1 { font-size: 1.7em; }
+    .content-section > h2 { font-size: 1.5em; }
+
+    .modal-content { width: 95%; margin: 5% auto; max-height: 90vh; }
+    .winners-grid { grid-template-columns: 1fr; gap: 18px; }
+    .modal-header { padding: 18px 25px; }
+    .modal-header h2 { font-size: 1.4em; }
+    .modal-body { padding: 25px; }
+
+    .map-column, .charts-column {
+        width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        box-sizing: border-box;
+    }
+    #chartdiv { height: 450px; }
+
+    .control-panel.compact {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 25px;
+    }
+    .timeline-container, .category-filter {
+        width: 100%;
+    }
+    #custom-map-legend {
+        font-size: 11px;
+        padding: 12px 18px;
+        right: 15px;
+        top: 15px;
+    }
+    .flow-headers { padding: 0 15px; font-size: 1.05em;}
+    .chart-row { gap: 25px; } /* Adjust gap for single column charts */
+}
+
+@media (max-width: 480px) {
+    .site-title-header h1 { font-size: 1.7em; }
+    .site-title-header p { font-size: 0.9em; }
+    #chartdiv { height: 350px; }
+    #custom-map-legend { display: none; }
+
+    .modal-header h2 { font-size: 1.2em; }
+    .winner-card { padding: 18px; }
+    .winner-header h4 { font-size: 1.1em; }
+
+    .filter-controls label, .filter-controls select { font-size: 0.9em; }
+    .timeseries-filter label, .age-filter label, .interactive-gender-filter label { font-size: 0.9em; padding: 8px 15px; }
+    .control-panel.compact h3 {font-size: 1em;}
+    .dropdown-toggle, .dropdown-item {font-size: 0.95em;}
+    .content-section { padding: 20px 15px;}
+    .content-section > h1, .content-section > h2 { font-size: 1.5em; margin-bottom: 20px; padding-bottom: 15px;}
+    .content-section p { font-size: 1em; }
 }
