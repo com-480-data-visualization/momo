@@ -1,7 +1,4 @@
-// Function to setup and run the chart logic (mostly unchanged)
 function setupChart(nobelData) {
-
-    // Filter out entries without a country or category RIGHT AFTER parsing
     const validData = nobelData.filter(d => d.category && d.bornCountry);
 
     if (validData.length === 0) {
@@ -9,11 +6,10 @@ function setupChart(nobelData) {
         document.getElementById("piechartdiv").innerHTML = "Error: No valid data found in CSV.";
         return;
     }
-
-    // --- Populate Dropdown ---
+    
     const dropdown = document.getElementById("country-pie-select");
     const countries = [...new Set(validData.map(d => d.bornCountry))]
-        .filter(c => c) // Filter out any empty/undefined countries
+        .filter(c => c) 
         .sort();
 
     countries.forEach(country => {
@@ -23,9 +19,8 @@ function setupChart(nobelData) {
         dropdown.add(option);
     });
 
-    // --- amCharts Setup ---
     am5.ready(function () {
-        // Global variable
+        
         window.selectedCountryPie = "All";
 
         const root = am5.Root.new("piechartdiv");
@@ -56,8 +51,7 @@ function setupChart(nobelData) {
             marginTop: 15,
             marginBottom: 15
         }));
-
-        // ✅ Expose update function globally
+        
         window.updatePieChart = function () {
             const dropdownEl = document.getElementById("country-pie-select");
             const selected = dropdownEl.value;
@@ -65,7 +59,6 @@ function setupChart(nobelData) {
 
             console.log("Updating Pie Chart for:", country);
 
-            // Use 'validData' for filtering
             const filtered = validData.filter((d) =>
                 country === "All" || d.bornCountry === country
             );
@@ -85,7 +78,7 @@ function setupChart(nobelData) {
             series.appear(1000, 100);
         };
 
-        // --- Event Listeners ---
+        
         document.getElementById("country-pie-select").addEventListener("change", function () {
             const val = this.value;
             if (val !== "map") {
@@ -93,16 +86,10 @@ function setupChart(nobelData) {
             }
             window.updatePieChart();
         });
-
-        // --- Initial Render ---
         window.updatePieChart();
-
-    }); // end am5.ready()
+    }); 
 }
 
-// --- Data Loading using PapaParse ---
-// !! IMPORTANT: Replace 'nobel_laureates_data.csv' with the actual path.
-// Dynamic path that works both locally and on GitHub Pages
 const dataPath = window.location.pathname.includes('/momo/') 
     ? '/momo/nobel_laureates_data.csv' 
     : '../nobel_laureates_data.csv';
@@ -114,14 +101,11 @@ fetch(dataPath)
         return response.text();
     })
     .then(csvText => {
-        // Use PapaParse to parse the CSV text
         Papa.parse(csvText, {
-            header: true,        // Treat the first row as headers (creates objects)
-            skipEmptyLines: true, // Ignore empty lines
-            complete: function(results) { // Callback when parsing is done
-                console.log("PapaParse Results:", results); // For debugging
-
-                // Check for parsing errors
+            header: true,        
+            skipEmptyLines: true, 
+            complete: function(results) { 
+                console.log("PapaParse Results:", results); 
                 if (results.errors.length > 0) {
                     console.error("PapaParse Errors:", results.errors);
                     let errorMsg = "Error: Could not parse Nobel data.<br>";
@@ -129,15 +113,14 @@ fetch(dataPath)
                         errorMsg += `- ${err.message} (Row: ${err.row})<br>`;
                     });
                     document.getElementById("piechartdiv").innerHTML = errorMsg;
-                    return; // Stop if there are errors
+                    return; 
                 }
 
-                // 'results.data' contains the array of objects
                 const nobelLaureatesData = results.data;
-                setupChart(nobelLaureatesData); // Call setup with parsed data
+                setupChart(nobelLaureatesData); 
 
             },
-            error: function(error) { // Callback for fetch/read errors in PapaParse
+            error: function(error) { 
                  console.error('PapaParse Error:', error);
                  document.getElementById("piechartdiv").innerHTML = `Error during parsing: ${error.message}`;
             }

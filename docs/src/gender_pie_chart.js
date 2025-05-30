@@ -1,10 +1,5 @@
-/**
- * Sets up the Gender Pie Chart after Nobel data is loaded.
- * @param {Array} nobelData - Array of Nobel laureate objects from PapaParse.
- */
 function setupGenderPieChart(nobelData) {
 
-    // Filter data: We need entries with 'bornCountry'. We'll handle 'gender' later.
     const validData = nobelData.filter(d => d.bornCountry);
 
     if (validData.length === 0) {
@@ -12,14 +7,12 @@ function setupGenderPieChart(nobelData) {
         document.getElementById("genderpiechartdiv").innerHTML = "Error: No valid data found for Gender Pie Chart.";
         return;
     }
-
-    // --- Populate Dropdown ---
+    
     const dropdown = document.getElementById("country-gender-pie-select");
     const countries = [...new Set(validData.map(d => d.bornCountry))]
-        .filter(c => c) // Filter out any empty/undefined countries
+        .filter(c => c) 
         .sort();
-
-    // Clear existing options except 'All' and 'map' before adding new ones
+    
     while (dropdown.options.length > 2) {
        dropdown.remove(2);
     }
@@ -29,10 +22,9 @@ function setupGenderPieChart(nobelData) {
         option.text = country;
         dropdown.add(option);
     });
-
-    // --- amCharts Setup ---
+    
     am5.ready(function () {
-        // Use a dedicated global variable for this chart's country selection
+        
         window.selectedCountryGenderPie = window.selectedCountryGenderPie || "All";
 
         const root = am5.Root.new("genderpiechartdiv");
@@ -41,25 +33,22 @@ function setupGenderPieChart(nobelData) {
         const chart = root.container.children.push(
             am5percent.PieChart.new(root, {
                 layout: root.verticalLayout,
-                innerRadius: am5.percent(40) // Optional: Make it a donut chart
+                innerRadius: am5.percent(40) 
             })
         );
 
         const series = chart.series.push(
             am5percent.PieSeries.new(root, {
                 valueField: "value",
-                categoryField: "gender" // Use 'gender' as the category
+                categoryField: "gender" 
             })
         );
-
-        // Hide slice labels
+        
         series.labels.template.set("forceHidden", true);
         series.ticks.template.set("forceHidden", true);
 
-        // Configure tooltips
         series.slices.template.set("tooltipText", "{category}: {value} ({valuePercentTotal.formatNumber('0.0')}%)");
-
-        // Add a legend
+        
         const legend = chart.children.push(am5.Legend.new(root, {
             centerX: am5.percent(50),
             x: am5.percent(50),
@@ -67,22 +56,19 @@ function setupGenderPieChart(nobelData) {
             marginBottom: 15
         }));
 
-
-        // ✅ Expose update function globally
         window.updateGenderPieChart = function () {
             const dropdownEl = document.getElementById("country-gender-pie-select");
             const selected = dropdownEl.value;
             const country = selected === "map" ? window.selectedCountryGenderPie : selected;
-            const category = window.selectedMapCategory || "all"; // **获取全局类别**
+            const category = window.selectedMapCategory || "all"; 
 
             const filtered = validData.filter((d) => {
                 const countryMatch = country === "All" || d.bornCountry === country;
-                // **新增类别匹配**
+                
                 const categoryMatch = category === "all" || (d.category && d.category.toLowerCase() === category);
-                return countryMatch && categoryMatch; // **同时满足**
+                return countryMatch && categoryMatch; 
             });
 
-            // ... (后续的分组、设置数据代码保持不变) ...
             const grouped = {};
             filtered.forEach(d => {
                 let genderCategory = d.gender ? d.gender.trim().toLowerCase() : '';
@@ -100,26 +86,22 @@ function setupGenderPieChart(nobelData) {
             series.appear(1000, 100);
         };
 
-        // --- Event Listener ---
         document.getElementById("country-gender-pie-select").addEventListener("change", function () {
             const val = this.value;
-            // Update its dedicated global variable
+            
             if (val !== "map") {
                 window.selectedCountryGenderPie = val;
             }
             window.updateGenderPieChart();
         });
 
-        // --- Initial Render ---
         window.updateGenderPieChart();
 
-    }); // end am5.ready()
+    }); 
 }
 
-// --- Data Loading using PapaParse ---
 if (typeof Papa !== 'undefined') {
-    // !! IMPORTANT: Replace 'nobel_laureates_data.csv' with the actual path.
-    // Dynamic path that works both locally and on GitHub Pages
+    
     const dataPath = window.location.pathname.includes('/momo/') 
         ? '/momo/nobel_laureates_data.csv' 
         : '../nobel_laureates_data.csv';
@@ -140,7 +122,7 @@ if (typeof Papa !== 'undefined') {
                         document.getElementById("genderpiechartdiv").innerHTML = "Error: Could not parse Nobel data for Gender Pie Chart.";
                         return;
                     }
-                    // Pass the loaded data to the setup function
+                    
                     setupGenderPieChart(results.data);
                 },
                 error: function(error) {

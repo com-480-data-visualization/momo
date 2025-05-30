@@ -1,15 +1,9 @@
-/**
- * Sets up the Award Age Histogram Chart after Nobel data is loaded and processed.
- * @param {Array} processedNobelData - Array of Nobel laureate objects with calculated age.
- */
 function setupHistogramChart(processedNobelData) {
 
-    // Filter data: We need entries with 'bornCountry' and valid 'ageAtAward'.
-    // We also only want individuals, not organizations (check for gender).
     const validData = processedNobelData.filter(d =>
         d.bornCountry &&
-        d.ageAtAward > 0 && d.ageAtAward < 120 && // Filter for reasonable ages
-        d.gender && (d.gender.toLowerCase() === 'male' || d.gender.toLowerCase() === 'female') // Only individuals
+        d.ageAtAward > 0 && d.ageAtAward < 120 && 
+        d.gender && (d.gender.toLowerCase() === 'male' || d.gender.toLowerCase() === 'female') 
     );
 
     if (validData.length === 0) {
@@ -18,13 +12,11 @@ function setupHistogramChart(processedNobelData) {
         return;
     }
 
-    // --- Populate Dropdown ---
     const dropdown = document.getElementById("country-award-age-histogram-select");
     const countries = [...new Set(validData.map(d => d.bornCountry))]
         .filter(c => c)
         .sort();
 
-    // Clear existing options except 'All' and 'map'
     while (dropdown.options.length > 2) {
        dropdown.remove(2);
     }
@@ -35,9 +27,7 @@ function setupHistogramChart(processedNobelData) {
         dropdown.add(option);
     });
 
-    // --- amCharts Setup ---
     am5.ready(function () {
-        // Global variable
         window.selectedCountryAwardAgeHistogram = window.selectedCountryAwardAgeHistogram || "All";
 
         const root = am5.Root.new("awardAgeHistogramDiv");
@@ -106,31 +96,26 @@ function setupHistogramChart(processedNobelData) {
         series.columns.template.adapters.add("fill", (fill, target) => chart.get("colors").getIndex(series.columns.indexOf(target)));
         series.columns.template.adapters.add("stroke", (stroke, target) => chart.get("colors").getIndex(series.columns.indexOf(target)));
 
-        // ✅ Expose update function globally
         window.updateAwardAgeHistogramChart = function () {
            const dropdownEl = document.getElementById("country-award-age-histogram-select");
             const selected = dropdownEl.value;
             const country = selected === "map" ? window.selectedCountryAwardAgeHistogram : selected;
-            const category = window.selectedMapCategory || "all"; // **获取全局类别**
+            const category = window.selectedMapCategory || "all"; 
 
             const filteredLaureates = validData.filter(laureate => {
                 const countryMatch = country === "All" || laureate.bornCountry === country;
-                // **新增类别匹配**
                 const categoryMatch = category === "all" || (laureate.category && laureate.category.toLowerCase() === category);
-                // 确保其他条件也满足
                 return countryMatch && categoryMatch && !isNaN(laureate.ageAtAward) &&
                        laureate.ageAtAward > 0 && laureate.ageAtAward < 120 &&
                        laureate.gender && (laureate.gender.toLowerCase() === 'male' || laureate.gender.toLowerCase() === 'female');
             });
 
-            // Data binning setup
             const binSize = 10;
             const minAge = Math.floor(Math.min(...filteredLaureates.map(l => l.ageAtAward)) / binSize) * binSize;
             const maxAgeCalc = Math.ceil(Math.max(...filteredLaureates.map(l => l.ageAtAward)) / binSize) * binSize;
-            const maxAge = Math.max(minAge + binSize, maxAgeCalc); // Ensure at least one bin
+            const maxAge = Math.max(minAge + binSize, maxAgeCalc);
             const ageBins = {};
 
-            // Initialize bins only if there's data
             if (filteredLaureates.length > 0) {
                  for (let i = minAge; i < maxAge; i += binSize) {
                     ageBins[`${i}-${i + binSize - 1}`] = 0;
@@ -138,7 +123,6 @@ function setupHistogramChart(processedNobelData) {
             }
 
 
-            // Fill bins
             filteredLaureates.forEach(laureate => {
                 const age = laureate.ageAtAward;
                 const binStart = Math.floor(age / binSize) * binSize;
@@ -148,19 +132,16 @@ function setupHistogramChart(processedNobelData) {
                 }
             });
 
-            // Format for chart and sort
             const chartData = Object.entries(ageBins)
                 .map(([ageBin, count]) => ({ ageBin, count }))
                 .sort((a, b) => parseInt(a.ageBin.split("-")[0]) - parseInt(b.ageBin.split("-")[0]));
 
-            // Update chart
             xAxis.data.setAll(chartData);
             series.data.setAll(chartData);
             series.appear(1000);
             chart.appear(1000, 100);
         };
 
-        // --- Event Listener ---
         document.getElementById("country-award-age-histogram-select").addEventListener("change", function () {
             const val = this.value;
             if (val !== "map") {
@@ -169,15 +150,12 @@ function setupHistogramChart(processedNobelData) {
             window.updateAwardAgeHistogramChart();
         });
 
-        // --- Initial Render ---
-        window.updateAwardAgeHistogramChart(); // Call once with initial 'All' data
+        window.updateAwardAgeHistogramChart(); 
 
-    }); // end am5.ready()
+    }); 
 }
 
-// --- Data Loading and Pre-processing using PapaParse ---
 if (typeof Papa !== 'undefined') {
-    // !! IMPORTANT: Replace 'nobel_laureates_data.csv' with the actual path.
     // Dynamic path that works both locally and on GitHub Pages
     const dataPath = window.location.pathname.includes('/momo/') 
         ? '/momo/nobel_laureates_data.csv' 
@@ -200,7 +178,6 @@ if (typeof Papa !== 'undefined') {
                         return;
                     }
 
-                    // Pre-process: Calculate age
                     const processedData = results.data.map(laureate => {
                         const awardYear = parseInt(laureate.year, 10);
                         let bornYear = NaN;
@@ -215,24 +192,11 @@ if (typeof Papa !== 'undefined') {
                         if (!isNaN(awardYear) && !isNaN(bornYear) && bornYear > 0) {
                             laureate.ageAtAward = awardYear - bornYear;
                         } else {
-                            laureate.ageAtAward = NaN; // Mark as invalid
+                            laureate.ageAtAward = NaN; 
                         }
-                        //  // **** 添加或取消注释这部分 ****
-                        // if (laureate.bornCountry === "China") {
-                        //     console.log("China Data (Before Filter):", {
-                        //         fullName: laureate.fullName,
-                        //         born: laureate.born,
-                        //         year: laureate.year,
-                        //         parsedBornYear: bornYear,
-                        //         awardYear: awardYear,
-                        //         ageAtAward: laureate.ageAtAward,
-                        //         gender: laureate.gender
-                        //     });
-                        // }
                         return laureate;
                     });
 
-                    // Pass the processed data to the setup function
                     setupHistogramChart(processedData);
                 },
                 error: function(error) {
