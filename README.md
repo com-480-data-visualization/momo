@@ -8,6 +8,12 @@
 
 [Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
 
+## How to set up?
+1. Clone the repository
+2. Install VS Code with [Live Preview](https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server) extension.
+3. Open `docs/index.html` in the Code, and click "Show Preview" on the upper right.
+4. (optional) Select "Open in Browser" in the preview.
+
 ## Milestone 1 (21st March, 5pm)
 
 **10% of the final grade**
@@ -82,6 +88,10 @@ This project builds upon previous explorations of the dataset in [MATH-517](http
 [Link to report](https://github.com/com-480-data-visualization/momo/blob/milestone2/Milestone%202.pdf)
 
 ## Milestone 3 (30th May, 5pm)
+
+[Link to report](https://github.com/com-480-data-visualization/momo/blob/master/com480_dv_process_book.pdf)
+
+[Link to ScreenCast](https://github.com/com-480-data-visualization/momo/blob/master/screencast.mp4)
 
 **80% of the final grade**
 
